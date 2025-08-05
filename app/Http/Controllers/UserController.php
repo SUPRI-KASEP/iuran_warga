@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    //
+    // Tampilkan semua user
     public function index()
     {
-        return response()->json(User::all());
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
+    // Tampilkan form tambah user
+    public function create()
+    {
+        return view('users.create');
     }
 
     // Simpan user baru
@@ -26,7 +33,7 @@ class UserController extends Controller
             'level' => 'required|in:warga,admin',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
@@ -35,40 +42,47 @@ class UserController extends Controller
             'level' => $request->level,
         ]);
 
-        return response()->json($user, 201);
+        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan!');
     }
 
-    // Tampilkan user berdasarkan ID
+    // Tampilkan detail user berdasarkan ID
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return response()->json($user);
+        return view('users.show', compact('user'));
     }
 
-    // Update user
+    // Tampilkan form edit user
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
+    }
+
+    // Update data user
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'sometimes|required',
-            'username' => 'sometimes|required|unique:users,username,' . $id,
+            'name' => 'required',
+            'username' => 'required|unique:users,username,' . $id,
             'password' => 'nullable|min:6',
-            'nohp' => 'sometimes|required',
-            'address' => 'sometimes|required',
-            'level' => 'sometimes|required|in:warga,admin',
+            'nohp' => 'required',
+            'address' => 'required',
+            'level' => 'required|in:warga,admin',
         ]);
 
         $user->update([
-            'name' => $request->name ?? $user->name,
-            'username' => $request->username ?? $user->username,
+            'name' => $request->name,
+            'username' => $request->username,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
-            'nohp' => $request->nohp ?? $user->nohp,
-            'address' => $request->address ?? $user->address,
-            'level' => $request->level ?? $user->level,
+            'nohp' => $request->nohp,
+            'address' => $request->address,
+            'level' => $request->level,
         ]);
 
-        return response()->json($user);
+        return redirect()->route('users.index')->with('success', 'User berhasil diupdate!');
     }
 
     // Hapus user
@@ -77,9 +91,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return response()->json(['message' => 'User deleted successfully']);
+        return redirect()->route('users.index')->with('success', 'User berhasil dihapus!');
     }
 }
-
-
-
