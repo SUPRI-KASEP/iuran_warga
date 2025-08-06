@@ -14,26 +14,26 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin RW',
             'username' => 'adminrw',
             'password' => bcrypt('12345'),
-            'nohp' => '081234567890',
-            'address' => 'Jl. Admin No. 1',
+            'nohp' => '0812345678',
+            'address' => 'Jl. Cileles No. 1',
             'level' => 'admin',
         ]);
 
         User::create([
-            'name' => 'Warga A',
-            'username' => 'wargaa',
+            'name' => 'Jarwo',
+            'username' => 'jarwoo',
             'password' => bcrypt('23456'),
-            'nohp' => '081212345678',
-            'address' => 'Jl. Warga A',
+            'nohp' => '0812123456',
+            'address' => 'Jl. Cileles No. 2',
             'level' => 'warga',
         ]);
 
         User::create([
-            'name' => 'Warga B',
-            'username' => 'wargab',
+            'name' => 'Supri',
+            'username' => 'suprii',
             'password' => bcrypt('54321'),
-            'nohp' => '081298765432',
-            'address' => 'Jl. Warga B',
+            'nohp' => '0812965432',
+            'address' => 'Jl. Cileles No. 3',
             'level' => 'warga',
         ]);
     }

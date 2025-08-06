@@ -9,24 +9,31 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-// Proses login
+// Redirect dari root ke login
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+// Proses login (POST)
 Route::post('/login', function (Request $request) {
     $user = User::where('username', $request->username)->first();
 
     if ($user && Hash::check($request->password, $user->password)) {
         session([
-            'user_id' => $user->id,
-            'user_name' => $user->name,
+            'user_id'    => $user->id,
+            'user_name'  => $user->name,
             'user_level' => $user->level, // admin atau warga
-            'is_logged_in' => true
+            'is_logged_in' => true,
         ]);
 
         // Redirect sesuai role
-        return ($user->level === 'admin') ? redirect('/admin/dashboard') : redirect('/warga/home');
+        return ($user->level === 'admin')
+            ? redirect('/admin/dashboard')
+            : redirect('/warga/home');
     }
 
     return redirect()->back()->with('error', 'Username atau password salah.');
@@ -35,15 +42,15 @@ Route::post('/login', function (Request $request) {
 // Logout
 Route::post('/logout', function () {
     session()->flush();
-    return redirect('/login');
+    return redirect()->route('login');
 })->name('logout');
 
-// Dashboard untuk Admin
+// Dashboard Admin
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['ceklogin', 'role:admin']);
 
-// Dashboard untuk Warga
+// Dashboard Warga
 Route::get('/warga/home', function () {
     return view('warga.home');
 })->middleware(['ceklogin', 'role:warga']);
