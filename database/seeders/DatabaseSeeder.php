@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin RW',
             'username' => 'adminrw',
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('admin123'),
             'nohp' => '0812345678',
             'address' => 'Jl. Cileles No. 1',
             'level' => 'admin',

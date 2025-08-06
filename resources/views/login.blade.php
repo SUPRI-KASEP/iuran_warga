@@ -10,7 +10,7 @@
         @if(session('error'))
             <p class="text-red-500 mb-3">{{ session('error') }}</p>
         @endif
-        <form method="POST" action="{{ route('login.submit') }}" class="space-y-4">
+        <form method="POST" action="{{ route('login.post') }}" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-gray-700">Username</label>

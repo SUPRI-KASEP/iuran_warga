@@ -36,7 +36,7 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password), // <- bcrypt hashing
             'nohp' => $request->nohp,
             'address' => $request->address,
             'level' => $request->level,
@@ -73,14 +73,20 @@ class UserController extends Controller
             'level' => 'required|in:warga,admin',
         ]);
 
-        $user->update([
+        // Jika ada password baru, hash; kalau tidak, pakai password lama
+        $data = [
             'name' => $request->name,
             'username' => $request->username,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
             'nohp' => $request->nohp,
             'address' => $request->address,
             'level' => $request->level,
-        ]);
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
 
         return redirect()->route('users.index')->with('success', 'User berhasil diupdate!');
     }
