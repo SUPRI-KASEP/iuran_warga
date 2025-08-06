@@ -11,8 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Daftarkan alias middleware di sini
+        $middleware->alias([
+            'login' => \App\Http\Middleware\Login::class,
+            'CheckLogin' => \App\Http\Middleware\ChekLogin::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

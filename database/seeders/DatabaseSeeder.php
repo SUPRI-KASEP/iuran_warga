@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +13,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin RW',
             'username' => 'adminrw',
-            'password' => Hash::make('password'),
+            'password' => bcrypt('12345'),
             'nohp' => '081234567890',
             'address' => 'Jl. Admin No. 1',
             'level' => 'admin',
@@ -23,7 +22,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Warga A',
             'username' => 'wargaa',
-            'password' => Hash::make('password'),
+            'password' => bcrypt('23456'),
             'nohp' => '081212345678',
             'address' => 'Jl. Warga A',
             'level' => 'warga',
@@ -32,7 +31,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Warga B',
             'username' => 'wargab',
-            'password' => Hash::make('password'),
+            'password' => bcrypt('54321'),
             'nohp' => '081298765432',
             'address' => 'Jl. Warga B',
             'level' => 'warga',

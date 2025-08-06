@@ -28,7 +28,6 @@
     </nav>
   </header>
 
-  <!-- HERO SECTION -->
   <section class="relative bg-cover bg-center h-screen" style="background-image: url('/storage/image/y.png');">
     <div class="absolute inset-0 bg-black opacity-70"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
@@ -112,7 +111,7 @@
       <div>
         <h1 class="text-xl font-bold mb-4">IURAN<span class="text-teal-400">WARGA</span></h1>
         <p class="text-sm text-gray-400">© 2025 Iuran Warga, Buku Kas & Arisan.<br>
-        Proudly powered by <a href="https://bagi2info.com" class="text-yellow-300 hover:underline">Bagi2info.com</a><br>
+        Proudly powered by <a href="Bbn.com" class="text-yellow-300 hover:underline">Bbn.com</a><br>
         Theme: Sydney</p>
       </div>
 
