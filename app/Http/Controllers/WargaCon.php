@@ -7,29 +7,35 @@ use Illuminate\Http\Request;
 
 class WargaCon extends Controller
 {
-    // Tampilkan semua data warga
+    /**
+     * Menampilkan semua data warga
+     */
     public function index()
     {
         $warga = Warga::all();
         return view('warga.index', compact('warga'));
     }
 
-    // Tampilkan form tambah warga
+    /**
+     * Menampilkan form untuk menambahkan warga
+     */
     public function create()
     {
         return view('warga.create');
     }
 
-    // Simpan data warga baru
+    /**
+     * Menyimpan data warga baru
+     */
     public function store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
             'nik' => 'required|numeric|unique:warga,nik',
             'jk' => 'required|in:L,P',
-            'alamat' => 'required',
-            'no_rumah' => 'required',
-            'status' => 'required',
+            'alamat' => 'required|string',
+            'no_rumah' => 'required|string',
+            'status' => 'required|string',
         ]);
 
         Warga::create($request->all());
@@ -37,14 +43,18 @@ class WargaCon extends Controller
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil ditambahkan.');
     }
 
-    // Tampilkan form edit warga
+    /**
+     * Menampilkan form untuk edit data warga
+     */
     public function edit($id)
     {
         $warga = Warga::findOrFail($id);
         return view('warga.edit', compact('warga'));
     }
 
-    // Update data warga
+    /**
+     * Memperbarui data warga
+     */
     public function update(Request $request, $id)
     {
         $warga = Warga::findOrFail($id);
@@ -53,9 +63,9 @@ class WargaCon extends Controller
             'nama' => 'required|string|max:255',
             'nik' => 'required|numeric|unique:warga,nik,' . $id,
             'jk' => 'required|in:L,P',
-            'alamat' => 'required',
-            'no_rumah' => 'required',
-            'status' => 'required',
+            'alamat' => 'required|string',
+            'no_rumah' => 'required|string',
+            'status' => 'required|string',
         ]);
 
         $warga->update($request->all());
@@ -63,7 +73,9 @@ class WargaCon extends Controller
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil diperbarui.');
     }
 
-    // Hapus data warga
+    /**
+     * Menghapus data warga
+     */
     public function destroy($id)
     {
         $warga = Warga::findOrFail($id);

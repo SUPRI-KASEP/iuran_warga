@@ -57,4 +57,19 @@ Route::get('/warga/home', function () {
 });
 
 
+Route::get('/dashboard', [DashboardCon::class, 'dashboard'])->name('dashboard');
+Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
+Route::get('/transaksikas', [TransaksiCon::class, 'index'])->name('transaksikas');
+
+
+Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
+Route::get('/datawarga/create', [WargaCon::class, 'create'])->name('warga.create');
+Route::post('/datawarga', [WargaCon::class, 'store'])->name('warga.store');
+Route::get('/datawarga/{id}/edit', [WargaCon::class, 'edit'])->name('warga.edit');
+Route::put('/datawarga/{id}', [WargaCon::class, 'update'])->name('warga.update');
+Route::delete('/datawarga/{id}', [WargaCon::class, 'destroy'])->name('warga.destroy');
+
+
+
+
 
