@@ -56,7 +56,7 @@ Route::middleware(['auth'])->get('/warga/home', function () {
 // Route dengan Middleware Auth untuk halaman-halaman lain
 Route::middleware(['auth'])->group(function () {
     Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
-    Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi');
+    // Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi');i
 
     Route::get('/datawarga/create', [WargaCon::class, 'create'])->name('warga.create');
     Route::post('/datawarga', [WargaCon::class, 'store'])->name('warga.store');
