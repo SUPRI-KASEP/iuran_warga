@@ -13,8 +13,7 @@ class WargaCon extends Controller
     public function index()
     {
         $warga = Warga::all();
-        return view('warga.index', compact('warga'));
-    }
+        return view('admin.datawarga');    }
 
     /**
      * Menampilkan form untuk menambahkan warga
