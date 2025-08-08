@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\TransaksiCon;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaCon;
 use App\Models\User;
@@ -54,9 +55,8 @@ Route::middleware(['auth'])->get('/warga/home', function () {
 
 // Route dengan Middleware Auth untuk halaman-halaman lain
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardCon::class, 'dashboard'])->name('dashboard');
     Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
-    Route::get('/transaksikas', [TransaksiCon::class, 'index'])->name('transaksikas');
+    Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi');
 
     Route::get('/datawarga/create', [WargaCon::class, 'create'])->name('warga.create');
     Route::post('/datawarga', [WargaCon::class, 'store'])->name('warga.store');
