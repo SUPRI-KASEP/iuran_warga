@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaCon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,9 +13,15 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+
+
 // Redirect dari root ke login
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+Route::get('/', function(){
+    return view('admin.datawarga');
 });
 
 // Proses login (POST)
@@ -29,8 +36,6 @@ Route::post('/logout', function () {
 // Dashboard Admin - Tanpa middleware
 Route::get('/admin/dashboard', function () {
     // Debug isi session, hapus atau comment setelah dicek
-    dd(session()->all());
-
     $user = session('user');
 
     if (!session('is_logged_in') || !$user || $user->level !== 'admin') {
@@ -50,3 +55,6 @@ Route::get('/warga/home', function () {
 
     return view('warga.home');
 });
+
+
+
