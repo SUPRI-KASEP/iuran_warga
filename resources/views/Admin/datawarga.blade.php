@@ -23,7 +23,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Aplikasi Iuran Kas</a>
     <div class="d-flex">
-      <a class="btn btn-outline-light" href="#">Logout</a>
+      <a class="btn btn-outline-light" href="route{{ "/logout" }}">Logout</a>
     </div>
   </div>
 </nav>
