@@ -65,7 +65,7 @@
           <div>
             <h5 class="card-title">Transaksi Kas Warga</h5>
             <h1>{{ $jumlahTransaksi ?? 0 }}</h1>
-            <a href="{{ route('transaksi') }}" class="btn btn-outline-light btn-sm mt-2">Lihat Data</a>
+            <a href="" class="btn btn-outline-light btn-sm mt-2">Lihat Data</a>
           </div>
           <div class="card-icon">
             <i class="bi bi-cash-coin"></i>
