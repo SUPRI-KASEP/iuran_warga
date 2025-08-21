@@ -32,7 +32,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Aplikasi Iuran Kas</a>
+    <a class="navbar-brand" href="#">Kas Warga</a>
     <div class="d-flex">
       <a class="btn btn-outline-light" href="{{ route('logout') }}">Logout</a>
     </div>

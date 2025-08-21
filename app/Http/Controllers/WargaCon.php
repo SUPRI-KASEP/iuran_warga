@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Warga;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class WargaCon extends Controller
 {
@@ -12,8 +15,8 @@ class WargaCon extends Controller
      */
     public function index()
     {
-        $warga = Warga::all();
-        return view('admin.datawarga');    }
+        $data['user'] = User::all();
+        return view('admin.datawarga', $data);    }
 
     /**
      * Menampilkan form untuk menambahkan warga
@@ -77,7 +80,12 @@ class WargaCon extends Controller
      */
     public function destroy($id)
     {
-        $warga = Warga::findOrFail($id);
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (DecryptException $e) {
+
+        }
+        $warga = User::find($id);
         $warga->delete();
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil dihapus.');

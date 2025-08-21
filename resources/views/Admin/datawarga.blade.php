@@ -37,6 +37,9 @@
   <div class="table-responsive shadow-sm rounded bg-white p-3">
     <table class="table table-hover align-middle">
       <thead class="table-dark">
+        @foreach ($user as $item )
+
+        @endforeach
         <tr>
           <th>No</th>
           <th>NIK</th>

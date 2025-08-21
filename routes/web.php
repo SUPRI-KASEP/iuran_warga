@@ -26,9 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/datawarga', [WargaCon::class, 'store'])->name('warga.store');
     Route::get('/datawarga/{id}/edit', [WargaCon::class, 'edit'])->name('warga.edit');
     Route::put('/datawarga/{id}', [WargaCon::class, 'update'])->name('warga.update');
-    Route::delete('/datawarga/{id}', [WargaCon::class, 'destroy'])->name('warga.destroy');
+    Route::get('/datawarga/{id}', [WargaCon::class, 'destroy'])->name('warga.destroy');
 
-    
+
 });
 
 
