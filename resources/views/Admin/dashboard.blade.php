@@ -1,85 +1,183 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard Kas</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
     body {
-      background-color: #f8f9fa;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background-color: #121212;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background-color: #1e1e2d;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      padding-top: 60px;
+    }
+
+    .sidebar .nav-link {
+      color: #aaa;
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin: 4px 12px;
+      transition: 0.3s;
+    }
+
+    .sidebar .nav-link.active,
+    .sidebar .nav-link:hover {
+      background-color: #e11d48;
+      color: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+      margin-left: 240px;
+      background-color: #1e1e2d;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Content */
+    .content {
+      margin-left: 260px;
+      padding: 30px;
+    }
+
     .card-box {
+      background-color: #1e1e2d;
+      border: none;
       border-radius: 15px;
-      transition: transform 0.2s;
+      padding: 20px;
+      color: #fff;
+      transition: 0.3s;
     }
+
     .card-box:hover {
-      transform: scale(1.03);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
+
     .card-icon {
       font-size: 2.5rem;
+      color: #e11d48;
     }
+
     footer {
-      margin-top: auto;
+      text-align: center;
+      margin-top: 40px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- Sidebar -->
+<div class="sidebar d-flex flex-column">
+  <h3 class="text-white text-center mb-4">Kas Warga</h3>
+  <nav class="nav flex-column">
+    <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+    <a class="nav-link" href="{{ route('datawarga') }}"><i class="bi bi-people-fill me-2"></i> Data Warga</a>
+    <a class="nav-link" href="#"><i class="bi bi-cash-coin me-2"></i> Transaksi Kas</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up me-2"></i> Laporan</a>
+  </nav>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Kas Warga</a>
+    <span class="navbar-brand">Dashboard</span>
     <div class="d-flex">
-      <a class="btn btn-outline-light" href="{{ route('logout') }}">Logout</a>
+      <a class="btn btn-outline-light btn-sm" href="#">Logout</a>
     </div>
   </div>
 </nav>
 
-<div class="container my-5">
+<!-- Content -->
+<div class="content">
   <div class="row g-4">
 
     <!-- Data Warga -->
-    <div class="col-md-6">
-      <div class="card text-white bg-success card-box shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
+    <div class="col-md-6 col-lg-3">
+      <div class="card-box">
+        <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="card-title">Data Warga</h5>
-            <h1>{{ $jumlahWarga ?? 0 }}</h1>
-            <a href="{{ route('datawarga') }}" class="btn btn-outline-light btn-sm mt-2">Lihat Data</a>
+            <h6>Data Warga</h6>
+            <h2>{{ $jumlahWarga ?? 0 }}</h2>
           </div>
-          <div class="card-icon">
-            <i class="bi bi-people-fill"></i>
-          </div>
+          <i class="bi bi-people-fill card-icon"></i>
         </div>
       </div>
     </div>
 
     <!-- Transaksi Kas -->
-    <div class="col-md-6">
-      <div class="card text-white bg-primary card-box shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
+    <div class="col-md-6 col-lg-3">
+      <div class="card-box">
+        <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="card-title">Transaksi Kas Warga</h5>
-            <h1>{{ $jumlahTransaksi ?? 0 }}</h1>
-            <a href="" class="btn btn-outline-light btn-sm mt-2">Lihat Data</a>
+            <h6>Transaksi Kas</h6>
+            <h2>{{ $jumlahTransaksi ?? 0 }}</h2>
           </div>
-          <div class="card-icon">
-            <i class="bi bi-cash-coin"></i>
+          <i class="bi bi-cash-coin card-icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder Today Sale -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card-box">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6>Today Sale</h6>
+            <h2>$1234</h2>
           </div>
+          <i class="bi bi-bar-chart-line-fill card-icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder Revenue -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card-box">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6>Total Revenue</h6>
+            <h2>$5678</h2>
+          </div>
+          <i class="bi bi-pie-chart-fill card-icon"></i>
         </div>
       </div>
     </div>
 
   </div>
-</div>
 
-<footer class="text-center text-muted py-3">
-  <small>Copyright © 2025 <strong>Versi Revisi</strong>. All rights reserved.</small>
-</footer>
+  <!-- Placeholder Chart -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card-box" style="height:300px;">
+        <h6>Worldwide Sales</h6>
+        <p class="text-muted">[Chart Placeholder]</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-box" style="height:300px;">
+        <h6>Sales & Revenue</h6>
+        <p class="text-muted">[Chart Placeholder]</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-5">
+    <small>© 2025 <strong>Kas Warga</strong>. All rights reserved.</small>
+  </footer>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -23,7 +23,7 @@ class WargaCon extends Controller
      */
     public function create()
     {
-        return view('warga.create');
+        return view('admin.createdata');
     }
 
     /**
@@ -40,7 +40,9 @@ class WargaCon extends Controller
             'status' => 'required|string',
         ]);
 
-        Warga::create($request->all());
+        $data['user'] = Warga::all();
+
+
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil ditambahkan.');
     }
@@ -51,7 +53,7 @@ class WargaCon extends Controller
     public function edit($id)
     {
         $warga = Warga::findOrFail($id);
-        return view('warga.edit', compact('warga'));
+        return view('admin.editwarga', compact('warga'));
     }
 
     /**
@@ -80,14 +82,9 @@ class WargaCon extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $id = Crypt::decrypt($id);
-        } catch (DecryptException $e) {
-
-        }
-        $warga = User::find($id);
+        $warga = Warga::findOrFail($id);
         $warga->delete();
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil dihapus.');
-    }
+}
 }
