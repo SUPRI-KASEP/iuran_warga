@@ -63,7 +63,8 @@
   <!-- Content -->
   <div class="content">
     <br>
-    <button class="btn btn-create mb-3">+ Tambah Data</button>
+    <!-- <button class="btn btn-create mb-3">+ Tambah Data</button> -->
+     <a href="{{ route('admin.createdata') }}" class="btn btn-create mb-3">Tambah Data</a>
     <table class="table table-dark table-striped align-middle text-center">
       <thead>
         <tr>
@@ -71,40 +72,38 @@
           <th>NIK</th>
           <th>Nama Lengkap</th>
           <th>Jenis Kelamin</th>
-          <th>Tempat Lahir</th>
-          <th>Tanggal Lahir</th>
-          <th>No HP</th>
+          <th>Kategori</th>
+          <th>Alamat</th>
+          <th>No.Rumah</th>
+          <th>Status</th>
           <th>Aksi</th>
         </tr>
       </thead>
+    
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>71021302368001</td>
-          <td>Alex Sangian</td>
-          <td>Laki-laki</td>
-          <td>Motoling</td>
-          <td>1968-03-02</td>
-          <td>08123456789</td>
-          <td>
-            <button class="btn btn-update btn-sm">Update</button>
-            <button class="btn btn-delete btn-sm">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>71021304126004</td>
-          <td>Peter Sengkay</td>
-          <td>Laki-laki</td>
-          <td>Raanan Lama</td>
-          <td>1964-12-04</td>
-          <td>082112345678</td>
-          <td>
-            <button class="btn btn-update btn-sm">Update</button>
-            <button class="btn btn-delete btn-sm">Delete</button>
-          </td>
-        </tr>
+        @foreach($warga as $index => $item)
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $item->nik }}</td>
+            <td>{{ $item->nama }}</td>
+            <td>{{ $item->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+            <td>{{ $item->kategori == 'Admin' ? 'Admin' : 'Warga' }}</td>
+            <td>{{ $item->alamat }}</td>
+            <td>{{ $item->no_rumah }}</td>
+            <td>{{ $item->status }}</td>
+            <td>
+              <!-- <button class="btn btn-update">update</button> -->
+              <a href="{{ route('admin.editwarga', $item->id) }}" class="btn btn-update">Update</a>
+              <form action="{{ route('admin.delete', $item->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-delete btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        @endforeach
       </tbody>
+
     </table>
   </div>
 </body>

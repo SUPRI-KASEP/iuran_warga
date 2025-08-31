@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Warga;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class WargaCon extends Controller
 {
@@ -15,8 +13,9 @@ class WargaCon extends Controller
      */
     public function index()
     {
-        $data['user'] = User::all();
-        return view('admin.datawarga', $data);    }
+        $data['warga'] = Warga::all();
+        return view('admin.datawarga', $data);
+    }
 
     /**
      * Menampilkan form untuk menambahkan warga
@@ -32,47 +31,61 @@ class WargaCon extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'required|numeric|unique:warga,nik',
-            'jk' => 'required|in:L,P',
-            'alamat' => 'required|string',
-            'no_rumah' => 'required|string',
-            'status' => 'required|string',
+            'nik'           => 'required|numeric|unique:warga,nik',
+            'nama'          => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:L,P',
+            'kategori'      => 'required|in:Admin,Warga',
+            'alamat'        => 'required|string',
+            'no_rumah'      => 'required|string',
+            'status'        => 'required|in:Aktif,Menunggu',
         ]);
 
-        $data['user'] = Warga::all();
-
-
+        Warga::create([
+            'nik'           => $request->nik,
+            'nama'          => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'kategori'      => $request->kategori, 
+            'alamat'        => $request->alamat,
+            'no_rumah'      => $request->no_rumah,
+            'status'        => $request->status,
+        ]);
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil ditambahkan.');
     }
 
     /**
-     * Menampilkan form untuk edit data warga
+     * Menampilkan form edit
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $warga = Warga::findOrFail($id);
-        return view('admin.editwarga', compact('warga'));
+        return view('admin.editdata', compact('warga'));
     }
 
     /**
      * Memperbarui data warga
      */
-    public function update(Request $request, $id)
-    {
-        $warga = Warga::findOrFail($id);
-
+    public function update(Request $request, $id) {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'required|numeric|unique:warga,nik,' . $id,
-            'jk' => 'required|in:L,P',
-            'alamat' => 'required|string',
-            'no_rumah' => 'required|string',
-            'status' => 'required|string',
+            'nik'           => 'required|numeric|unique:warga,nik,' . $id,
+            'nama'          => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:L,P',
+            'kategori'      => 'required|in:Admin,Warga',
+            'alamat'        => 'required|string',
+            'no_rumah'      => 'required|string',
+            'status'        => 'required|in:Aktif,Menunggu',
         ]);
 
-        $warga->update($request->all());
+        $warga = Warga::findOrFail($id);
+
+        $warga->update([
+            'nik'           => $request->nik,
+            'nama'          => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'kategori'      => $request->kategori,
+            'alamat'        => $request->alamat,
+            'no_rumah'      => $request->no_rumah,
+            'status'        => $request->status,
+        ]);
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil diperbarui.');
     }
@@ -86,5 +99,5 @@ class WargaCon extends Controller
         $warga->delete();
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil dihapus.');
-}
+    }
 }

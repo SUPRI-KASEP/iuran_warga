@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard Kas</title>
+
+  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
   <style>
     body {
       background-color: #121212;
@@ -78,107 +81,118 @@
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar d-flex flex-column">
-  <h3 class="text-white text-center mb-4">Kas Warga</h3>
-  <nav class="nav flex-column">
-    <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-    <a class="nav-link" href="{{ route('datawarga') }}"><i class="bi bi-people-fill me-2"></i> Data Warga</a>
-    <a class="nav-link" href="#"><i class="bi bi-cash-coin me-2"></i> Transaksi Kas</a>
-    <a class="nav-link" href="#"><i class="bi bi-graph-up me-2"></i> Laporan</a>
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column">
+    <h3 class="text-white text-center mb-4">Kas Warga</h3>
+    <nav class="nav flex-column">
+      <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+      </a>
+      <a class="nav-link {{ request()->routeIs('datawarga') ? 'active' : '' }}" href="{{ route('datawarga') }}">
+        <i class="bi bi-people-fill me-2"></i> Data Warga
+      </a>
+      <a class="nav-link" href="#">
+        <i class="bi bi-cash-coin me-2"></i> Transaksi Kas
+      </a>
+      <a class="nav-link" href="#">
+        <i class="bi bi-graph-up me-2"></i> Laporan
+      </a>
+    </nav>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark px-4">
+    <div class="container-fluid justify-content-end">
+      <!-- Tombol Logout -->
+      <form action="{{ route('logout') }}" method="POST" class="m-0">
+        @csrf
+        <button type="submit" class="btn btn-outline-light btn-sm">
+          Logout
+        </button>
+      </form>
+    </div>
   </nav>
-</div>
 
-<!-- Navbar -->
-<nav class="navbar navbar-dark">
-  <div class="container-fluid">
-    <span class="navbar-brand">Dashboard</span>
-    <div class="d-flex">
-      <a class="btn btn-outline-light btn-sm" href="#">Logout</a>
-    </div>
-  </div>
-</nav>
+  <!-- Content -->
+  <div class="content">
+    <div class="row g-4">
 
-<!-- Content -->
-<div class="content">
-  <div class="row g-4">
-
-    <!-- Data Warga -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card-box">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h6>Data Warga</h6>
-            <h2>{{ $jumlahWarga ?? 0 }}</h2>
+      <!-- Data Warga -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card-box">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Data Warga</h6>
+              <h2>{{ $jumlahWarga ?? 0 }}</h2>
+            </div>
+            <i class="bi bi-people-fill card-icon"></i>
           </div>
-          <i class="bi bi-people-fill card-icon"></i>
+        </div>
+      </div>
+
+      <!-- Transaksi Kas -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card-box">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Transaksi Kas</h6>
+              <h2>{{ $jumlahTransaksi ?? 0 }}</h2>
+            </div>
+            <i class="bi bi-cash-coin card-icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today Sale -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card-box">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Today Sale</h6>
+              <h2>Rp {{ number_format($todaySale ?? 0, 0, ',', '.') }}</h2>
+            </div>
+            <i class="bi bi-bar-chart-line-fill card-icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card-box">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Total Revenue</h6>
+              <h2>Rp {{ number_format($totalRevenue ?? 0, 0, ',', '.') }}</h2>
+            </div>
+            <i class="bi bi-pie-chart-fill card-icon"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Chart Placeholder -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card-box" style="height:300px;">
+          <h6>Worldwide Sales</h6>
+          <p class="text-muted">[Chart Placeholder]</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-box" style="height:300px;">
+          <h6>Sales & Revenue</h6>
+          <p class="text-muted">[Chart Placeholder]</p>
         </div>
       </div>
     </div>
 
-    <!-- Transaksi Kas -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card-box">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h6>Transaksi Kas</h6>
-            <h2>{{ $jumlahTransaksi ?? 0 }}</h2>
-          </div>
-          <i class="bi bi-cash-coin card-icon"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Placeholder Today Sale -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card-box">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h6>Today Sale</h6>
-            <h2>$1234</h2>
-          </div>
-          <i class="bi bi-bar-chart-line-fill card-icon"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Placeholder Revenue -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card-box">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h6>Total Revenue</h6>
-            <h2>$5678</h2>
-          </div>
-          <i class="bi bi-pie-chart-fill card-icon"></i>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Placeholder Chart -->
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <div class="card-box" style="height:300px;">
-        <h6>Worldwide Sales</h6>
-        <p class="text-muted">[Chart Placeholder]</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-box" style="height:300px;">
-        <h6>Sales & Revenue</h6>
-        <p class="text-muted">[Chart Placeholder]</p>
-      </div>
-    </div>
+    <!-- Footer -->
+    <footer class="mt-5">
+      <small>© 2025 <strong>Kas Warga</strong>. All rights reserved.</small>
+    </footer>
   </div>
 
-  <!-- Footer -->
-  <footer class="mt-5">
-    <small>© 2025 <strong>Kas Warga</strong>. All rights reserved.</small>
-  </footer>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
