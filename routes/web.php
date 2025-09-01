@@ -29,7 +29,13 @@ Route::post('/logout', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
     Route::get('/admin/dashboard', [AdminCon::class, 'dashboard'])->name('dashboard');
-    // Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi');i
+
+    Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi.index');
+    Route::post('/transaksi/store', [TransaksiCon::class, 'store'])->name('transaksi.store');
+    Route::delete('/transaksi/{id}', [TransaksiCon::class, 'destroy'])->name('transaksi.destroy');
+
+
+
 
     Route::get('/datawarga/create', [WargaCon::class, 'create'])->name('admin.createdata');
     Route::post('/datawarga', [WargaCon::class, 'store'])->name('admin.store');
