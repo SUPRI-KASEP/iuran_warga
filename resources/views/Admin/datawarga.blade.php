@@ -56,7 +56,7 @@
     <h3>Data Warga</h3>
     <ul class="nav flex-column mt-4">
       <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link text-light">Dashboard</a></li>
-      <li class="nav-item"><a href="{{ route('transaksi') }}" class="nav-link text-light">Transaksi</a></li>
+      <li class="nav-item"><a href="{{ route('transaksi.index') }}" class="nav-link text-light">Transaksi</a></li>
     </ul>
   </div>
 

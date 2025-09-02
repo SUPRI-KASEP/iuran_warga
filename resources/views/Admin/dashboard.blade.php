@@ -91,7 +91,7 @@
       <a class="nav-link {{ request()->routeIs('datawarga') ? 'active' : '' }}" href="{{ route('datawarga') }}">
         <i class="bi bi-people-fill me-2"></i> Data Warga
       </a>
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{{ route('transaksi.index') }}">
         <i class="bi bi-cash-coin me-2"></i> Transaksi Kas
       </a>
       <a class="nav-link" href="#">
@@ -189,7 +189,7 @@
 
     <!-- Footer -->
     <footer class="mt-5">
-      <small>© 2025 <strong>Kas Warga</strong>. All rights reserved.</small>
+      <small>© 2025 <strong>Iuran Wargah</strong>. All rights reserved.</small>
     </footer>
   </div>
 
