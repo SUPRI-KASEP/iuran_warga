@@ -1,147 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iuran Warga</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/forms"></script>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="font-sans bg-gray-50 text-gray-800">
 
-  <!-- NAVBAR -->
-  <header class="flex justify-between items-center px-8 py-4 bg-gray-900">
-    <h1 class="text-2xl font-bold">
-      IURAN<span class="text-teal-400">WARGA</span>
-    </h1>
-    <nav class="space-x-6 text-sm">
-      <a href="#" class="hover:text-teal-400">Home</a>
-      <a href="#" class="hover:text-teal-400">About</a>
-      <a href="#" class="hover:text-teal-400">Services</a>
-      <a href="#" class="hover:text-teal-400">FAQ</a>
-      <a href="#" class="hover:text-teal-400">Blog</a>
-      <a href="#" class="hover:text-teal-400">Contact</a>
-      <a href="#" class="hover:text-teal-400">
-        <svg class="inline w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/>
-        </svg>
+  <!-- Navbar -->
+  <header class="fixed w-full bg-white/70 backdrop-blur-lg shadow-md z-50">
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="text-2xl font-extrabold text-blue-600 tracking-wide">IuranWarga</h1>
+      <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <a href="#manfaat" class="hover:text-blue-500 transition">Manfaat</a>
+        <a href="#fitur" class="hover:text-blue-500 transition">Fitur</a>
+        <a href="#harga" class="hover:text-blue-500 transition">Pricelist</a>
+      </nav>
+      <a href="{{ route('login') }}" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+        Masuk
       </a>
-    </nav>
+    </div>
   </header>
 
-  <section class="relative bg-cover bg-center h-screen" style="background-image: url('/storage/image/y.png');">
-    <div class="absolute inset-0 bg-black opacity-70"></div>
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-      <h2 class="text-3xl sm:text-5xl font-bold leading-tight mb-4">
-        Mencatat pemasukan,<br />pengeluaran, iuran dan Arisan
-      </h2>
-      <p class="text-sm sm:text-lg text-gray-300 max-w-xl mb-6">
-        Aplikasi keuangan digital pribadi, mencatat pemasukan, biaya / pengeluaran,<br />
-        kartu iuran dan arisan dengan <span class="font-semibold text-white">mudah</span>
-      </p>
-      <div class="flex space-x-4">
-        <a href="#" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png" alt="Get on Google Play" class="h-12">
-        </a>
-        <a href="#" target="_blank">
-          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="h-12">
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-r from-blue-700 to-blue-500 text-white pt-32 pb-24 overflow-hidden">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6">
+      <!-- Left -->
+      <div class="animate-fadeInUp">
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6 drop-shadow-lg">
+          Platform Iuran Warga <br> Mudah, Rapi, Transparan
+        </h2>
+        <p class="text-lg mb-8 opacity-90">
+          Kelola iuran RT/RW Anda dengan lebih profesional. Laporan kas real-time, transparan, dan mudah diakses semua warga.
+        </p>
+        <a href="#daftar" class="bg-white text-blue-700 font-semibold px-8 py-3 rounded-xl shadow-lg hover:bg-gray-100 transition">
+          🚀 Daftarkan RT Anda Sekarang!
         </a>
       </div>
-    </div>
-  </section>
-
-  <!-- FITUR UTAMA -->
-  <section class="bg-gray-100 text-gray-900 py-20">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-10">
-        <!-- Transaksi -->
-        <div class="bg-white p-8 rounded shadow">
-          <div class="flex items-center justify-center w-12 h-12 bg-yellow-400 rounded-full mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/>
-            </svg>
-          </div>
-          <h3 class="text-sm font-bold uppercase text-gray-700 mb-2">Transaksi</h3>
-          <p class="text-sm text-gray-600">Mencatat transaksi pemasukan dan pengeluaran</p>
-        </div>
-
-        <!-- Iuran -->
-        <div class="bg-white p-8 rounded shadow">
-          <div class="flex items-center justify-center w-12 h-12 bg-yellow-400 rounded-full mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M7 8h10M7 16h10M7 12h10" />
-            </svg>
-          </div>
-          <h3 class="text-sm font-bold uppercase text-gray-700 mb-2">Iuran</h3>
-          <p class="text-sm text-gray-600">Mencatat berbagai iuran, iuran IPL, sampah, keamanan, arisan, dll</p>
-        </div>
-
-        <!-- Multiuser -->
-        <div class="bg-white p-8 rounded shadow">
-          <div class="flex items-center justify-center w-12 h-12 bg-yellow-400 rounded-full mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M16 12a4 4 0 1 0-8 0 4 4 0 0 0 8 0zm4 0a8 8 0 1 1-16 0 8 8 0 0 1 16 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-sm font-bold uppercase text-gray-700 mb-2">Multiuser</h3>
-          <p class="text-sm text-gray-600">Mendukung multi user, transaksi dan iuran dapat dilihat secara real time</p>
-        </div>
+      <!-- Right -->
+      <div class="flex justify-center relative">
+        <div class="absolute -top-10 -right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Warga"
+             class="w-80 md:w-96 drop-shadow-2xl animate-float">
       </div>
     </div>
   </section>
 
-  <!-- YOUR IDENTITY -->
-  <section class="bg-gray-100 text-gray-900 py-20">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="Your Identity Image" class="rounded shadow w-full object-cover">
-      </div>
-      <div>
-        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">Your Identity</p>
-        <h2 class="text-4xl font-bold mb-4">Amet minim mollit non deserunt</h2>
-        <p class="text-gray-600 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-        <a href="#" class="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-500 transition">Learn More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-gray-900 text-gray-100 pt-12 pb-6">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-10 items-start">
-      <!-- Logo -->
-      <div>
-        <h1 class="text-xl font-bold mb-4">IURAN<span class="text-teal-400">WARGA</span></h1>
-        <p class="text-sm text-gray-400">© 2025 Iuran Warga, Buku Kas & Arisan.<br>
-        Proudly powered by <a href="Bbn.com" class="text-yellow-300 hover:underline">Bbn.com</a><br>
-        Theme: Sydney</p>
-      </div>
-
-      <!-- Policy -->
-      <div>
-        <h2 class="uppercase text-sm font-semibold mb-3">Policy</h2>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-white">Terms & Conditions</a></li>
+  <!-- Manfaat Section -->
+  <section id="manfaat" class="container mx-auto py-24 px-6">
+    <h3 class="text-3xl font-extrabold text-center mb-12 text-gray-800">Kenapa Harus Pakai <span class="text-blue-600">IuranWarga</span>?</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Sebelum -->
+      <div class="p-8 rounded-2xl shadow-lg bg-white hover:shadow-2xl transition">
+        <h4 class="text-xl font-bold text-gray-800 mb-6 text-center">❌ Sebelum Menggunakan</h4>
+        <ul class="space-y-4 text-gray-700">
+          <li>📄 Catatan manual mudah hilang.</li>
+          <li>💰 Laporan kas tidak transparan.</li>
+          <li>⏳ Sulit melacak warga menunggak.</li>
+          <li>📢 Pengumuman via kertas manual.</li>
         </ul>
       </div>
-
-      <!-- Social -->
-      <div class="flex space-x-4 justify-start md:justify-end">
-        <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram" /></a>
-        <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/twitterx.png" alt="X" /></a>
-        <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="Facebook" /></a>
+      <!-- Sesudah -->
+      <div class="p-8 rounded-2xl shadow-lg bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-2xl transition">
+        <h4 class="text-xl font-bold mb-6 text-center">✅ Setelah Menggunakan</h4>
+        <ul class="space-y-4">
+          <li>⚡ Penagihan online, cepat, aman.</li>
+          <li>📊 Laporan kas transparan & terpusat.</li>
+          <li>📱 Bisa diakses via smartphone.</li>
+          <li>🔔 Notifikasi pengumuman otomatis.</li>
+        </ul>
       </div>
     </div>
+  </section>
 
-    <!-- Scroll to Top Button -->
-    <div class="text-right px-4 mt-8">
-      <a href="#" class="inline-block bg-yellow-400 p-3 rounded-full hover:bg-yellow-500 transition">
-        <svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 3a1 1 0 01.894.553l5 10a1 1 0 01-1.788.894L10 5.618 5.894 14.447a1 1 0 01-1.788-.894l5-10A1 1 0 0110 3z" clip-rule="evenodd" />
-        </svg>
-      </a>
-    </div>
+  <!-- Call To Action -->
+  <section id="daftar" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20 text-center">
+    <h3 class="text-3xl font-bold mb-6">Mulai Sekarang!</h3>
+    <p class="mb-8 text-lg opacity-90">Daftarkan RT Anda dan rasakan kemudahan mengelola iuran warga.</p>
+    <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-gray-100 transition">
+      💡 Daftar Gratis
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-6 text-center">
+    <p>© 2025 IuranWarga • Transparansi untuk semua warga</p>
   </footer>
+
+  <!-- Animations -->
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    .animate-fadeInUp {
+      animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 
 </body>
 </html>
