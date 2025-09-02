@@ -51,9 +51,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.dues_categories.update', $cat->id) }}" class="btn btn-warning btn-sm">
-                                    ✏️ Edit
-                                </a>
+                                
                                 <form action="{{ route('dues_categories.destroy', $cat->id) }}" method="POST" class="d-inline">
                                     @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">

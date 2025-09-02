@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard Kas</title>
 
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
@@ -102,7 +102,7 @@
             <div class="card-box">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6>Pemasukan Hari Ini</h6>
+                        <h6>Pemasukan Bulan Ini</h6>
                         <h2>Rp {{ number_format($todaySale, 0, ',', '.') }}</h2>
                     </div>
                     <i class="bi bi-bar-chart-line-fill card-icon"></i>

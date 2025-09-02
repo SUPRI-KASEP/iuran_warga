@@ -45,16 +45,12 @@ class DuesCategoryController extends Controller
             'description' => 'nullable|string'
         ]);
 
-        $duesCategory->update($request->all());
-
-        return redirect()->route('dues_categories.index')
-                         ->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy(DuesCategory $duesCategory)
     {
         $duesCategory->delete();
-        return redirect()->route('dues_categories.index')
+        return redirect()->route('admin.dues_categories')
                          ->with('success', 'Kategori berhasil dihapus.');
     }
 }
