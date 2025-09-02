@@ -3,22 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataWarga;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-     public function index()
+    public function index()
     {
         // Hitung jumlah data warga
         $jumlahWarga = DataWarga::count();
 
-        // Untuk sementara, jumlah transaksi 0 (nanti ambil dari model TransaksiKas)
-        $jumlahTransaksi = 0;
+        // Hitung jumlah transaksi
+        $jumlahTransaksi = Transaksi::count();
 
-        // Bisa juga tambahkan todaySale & totalRevenue biar tidak error di Blade
-        $todaySale = 0;
-        $totalRevenue = 0;
+        // Hitung transaksi hari ini
+        $todaySale = Transaksi::whereDate('tanggal_transaksi', Carbon::today())
+            ->sum('jumlah');
 
-        return view('admin.dashboard', compact('jumlahWarga', 'jumlahTransaksi'));
+        // Hitung total semua pemasukan
+        $totalRevenue = Transaksi::sum('jumlah');
+
+        return view('admin.dashboard', compact(
+            'jumlahWarga',
+            'jumlahTransaksi',
+            'todaySale',
+            'totalRevenue'
+        ));
     }
 }
