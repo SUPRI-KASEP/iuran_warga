@@ -51,7 +51,7 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
+  
   <div class="sidebar">
     <h3>Data Warga</h3>
     <ul class="nav flex-column mt-4">
@@ -60,10 +60,10 @@
     </ul>
   </div>
 
-  <!-- Content -->
+
   <div class="content">
     <br>
-    <!-- <button class="btn btn-create mb-3">+ Tambah Data</button> -->
+
      <a href="{{ route('admin.createdata') }}" class="btn btn-create mb-3">Tambah Data</a>
     <table class="table table-dark table-striped align-middle text-center">
       <thead>
@@ -92,7 +92,7 @@
             <td>{{ $item->no_rumah }}</td>
             <td>{{ $item->status }}</td>
             <td>
-              <!-- <button class="btn btn-update">update</button> -->
+
               <a href="{{ route('admin.editwarga', $item->id) }}" class="btn btn-update">Update</a>
               <form action="{{ route('admin.delete', $item->id) }}" method="POST" style="display:inline-block;">
                 @csrf

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard Kas</title>
 
-    <!-- Bootstrap & Icons -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-    <!-- Chart.js -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -28,7 +28,7 @@
 <body>
 
 @php
-    // Default fallback agar tidak error
+
     $jumlahWarga = $jumlahWarga ?? 0;
     $jumlahTransaksi = $jumlahTransaksi ?? 0;
     $todaySale = $todaySale ?? 0;
@@ -42,7 +42,7 @@
     $annualIncome = $annualIncome ?? [];
 @endphp
 
-<!-- Sidebar -->
+
 <div class="sidebar d-flex flex-column">
     <h3 class="text-white text-center mb-4">Iuran Warga</h3>
     <nav class="nav flex-column">
@@ -61,7 +61,7 @@
     </nav>
 </div>
 
-<!-- Navbar -->
+
 <nav class="navbar navbar-dark px-4">
     <div class="container-fluid justify-content-end">
         <form action="{{ route('logout') }}" method="POST" class="m-0">
@@ -71,7 +71,7 @@
     </div>
 </nav>
 
-<!-- Content -->
+
 <div class="content">
     <div class="row g-4">
         <div class="col-md-6 col-lg-3">
@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <!-- Charts -->
+
     <div class="row mt-4">
         <div class="col-md-4">
             <div class="card-box" style="height:300px;">
@@ -160,21 +160,21 @@
     const yearLabels = @json($yearLabels);
     const annualIncome = @json($annualIncome);
 
-    // Chart Pemasukan Bulanan
+
     new Chart(document.getElementById('monthlyIncomeChart').getContext('2d'), {
         type: 'bar',
         data: { labels: labels, datasets: [{ label: 'Pemasukan Bulanan (Rp)', data: monthlyIncome, backgroundColor: '#e11d48' }] },
         options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#f5f5f5' } }, y: { ticks: { color: '#f5f5f5' } } } }
     });
 
-    // Chart Pemasukan Kumulatif
+
     new Chart(document.getElementById('cumulativeIncomeChart').getContext('2d'), {
         type: 'line',
         data: { labels: labels, datasets: [{ label: 'Pemasukan Kumulatif (Rp)', data: cumulativeIncome, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)', fill: true, tension: 0.4 }] },
         options: { responsive: true, plugins: { legend: { labels: { color: '#f5f5f5' } } }, scales: { x: { ticks: { color: '#f5f5f5' } }, y: { ticks: { color: '#f5f5f5' } } } }
     });
 
-    // Chart Pemasukan Tahunan
+
     new Chart(document.getElementById('annualIncomeChart').getContext('2d'), {
         type: 'bar',
         data: { labels: yearLabels, datasets: [{ label: 'Pemasukan Tahunan (Rp)', data: annualIncome, backgroundColor: '#10b981' }] },
