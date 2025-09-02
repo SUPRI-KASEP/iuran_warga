@@ -10,12 +10,14 @@ class DuesCategory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'period',
-        'nominal',
+        'name',
+        'periode',
+        'amount',
         'status',
+        'description',
     ];
 
-    // Relasi ke anggota iuran
+   
     public function members()
     {
         return $this->hasMany(DuesMember::class, 'idduescategory');

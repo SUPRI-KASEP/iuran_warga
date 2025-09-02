@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminCon;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DuesCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficerController;
@@ -34,6 +35,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/transaksi', [TransaksiCon::class, 'index'])->name('transaksi.index');
     Route::post('/transaksi/store', [TransaksiCon::class, 'store'])->name('transaksi.store');
     Route::delete('/transaksi/{id}', [TransaksiCon::class, 'destroy'])->name('transaksi.destroy');
+
+
+    Route::get('/dues_categories', [DuesCategoryController::class, 'index'])->name('admin.dues_categories');
+    Route::get('/dues_categories/create', [DuesCategoryController::class, 'create'])->name('admin.dues_categories.create');
+    Route::post('/dues_categories', [DuesCategoryController::class, 'store'])->name('admin.dues_categories.store');
+    Route::put('/dues_categories/{duesCategory}', [DuesCategoryController::class, 'update'])->name('admin.dues_categories.update');
+
+    Route::delete('/dues_categories/{duesCategory}', [DuesCategoryController::class, 'destroy'])->name('dues_categories.destroy');
+
 
 
 

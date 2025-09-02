@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('dues_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // nama kategori
+            $table->enum('periode', ['bulanan', 'tahunan'])->default('bulanan'); // periode
+            $table->bigInteger('amount'); // nominal
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif'); // status
+            $table->text('description')->nullable(); // deskripsi opsional
             $table->timestamps();
         });
     }
