@@ -15,7 +15,6 @@
       color: #f5f5f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .card-custom {
       background: linear-gradient(145deg, #1a1a2e, #1f1f35);
       border: none;
@@ -24,58 +23,47 @@
       color: #fff;
       transition: 0.3s ease;
     }
-
     .card-custom:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
     }
-
     .table {
       color: #fff;
       margin-bottom: 0;
     }
-
     .table thead {
       background: #e11d48;
       color: #fff;
     }
-
     .table tbody tr:hover {
       background-color: rgba(225, 29, 72, 0.15);
     }
-
     .btn-primary {
       background-color: #e11d48;
       border: none;
       border-radius: 10px;
       padding: 8px 16px;
     }
-
     .btn-primary:hover {
       background-color: #c8103f;
     }
-
     .btn-outline-light {
       border-radius: 10px;
     }
-
     .btn-danger {
       background-color: #dc3545;
       border: none;
       border-radius: 8px;
     }
-
     .btn-danger:hover {
       background-color: #b52a35;
     }
-
     .modal-content {
       background: #1e1e2d;
       color: #fff;
       border-radius: 16px;
       border: none;
     }
-
     .form-control,
     .form-select {
       background-color: #2a2a3d;
@@ -83,14 +71,12 @@
       color: #fff;
       border-radius: 10px;
     }
-
     .form-control:focus,
     .form-select:focus {
       background-color: #2a2a3d;
       color: #fff;
       box-shadow: 0 0 0 2px #e11d48;
     }
-
     footer {
       text-align: center;
       margin-top: 50px;
@@ -110,8 +96,11 @@
       <a href="{{ route('dashboard') }}" class="btn btn-outline-light me-2">
         <i class="bi bi-arrow-left-circle"></i> Kembali
       </a>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formTransaksi">
-        <i class="bi bi-plus-circle"></i> Tambah & Bayar
+      <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#formBayar">
+        <i class="bi bi-cash-coin"></i> Bayar Iuran
+      </button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formTambah">
+        <i class="bi bi-plus-circle"></i> Tambah Transaksi
       </button>
     </div>
   </div>
@@ -129,15 +118,15 @@
     <div class="table-responsive">
       <table class="table align-middle table-hover">
         <thead>
-        <tr>
-          <th>#</th>
-          <th>Kode Transaksi</th>
-          <th>Nama Pengguna</th>
-          <th>Tanggal</th>
-          <th>Jenis</th>
-          <th>Jumlah</th>
-          <th>Aksi</th>
-        </tr>
+          <tr>
+            <th>#</th>
+            <th>Kode Transaksi</th>
+            <th>Nama Pengguna</th>
+            <th>Tanggal</th>
+            <th>Jenis</th>
+            <th>Jumlah</th>
+            <th>Aksi</th>
+          </tr>
         </thead>
         <tbody>
         @forelse($transaksi as $item)
@@ -152,7 +141,7 @@
               @elseif($item->jenis_transaksi === 'tahunan')
                 <span class="badge bg-success px-3 py-2">Tahunan</span>
               @else
-                <span class="badge bg-secondary px-3 py-2">{{ $item->jenis_transaksi }}</span>
+                <span class="badge bg-secondary px-3 py-2">{{ ucfirst($item->jenis_transaksi) }}</span>
               @endif
             </td>
             <td><strong>Rp {{ number_format($item->jumlah, 0, ',', '.') }}</strong></td>
@@ -179,44 +168,96 @@
   </div>
 </div>
 
-<!-- Modal Form -->
-<div class="modal fade" id="formTransaksi" tabindex="-1" aria-labelledby="formTransaksiLabel" aria-hidden="true">
+<!-- Modal Tambah Transaksi -->
+<div class="modal fade" id="formTambah" tabindex="-1" aria-labelledby="formTambahLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="{{ route('transaksi.store') }}" method="POST">
         @csrf
         <div class="modal-header border-0">
-          <h5 class="modal-title fw-bold" id="formTransaksiLabel">Tambah & Bayar Transaksi</h5>
+          <h5 class="modal-title fw-bold" id="formTambahLabel">Tambah Transaksi Manual</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Kode Transaksi</label>
-            <input type="text" name="kode_transaksi" class="form-control" value="TRX{{ time() }}" readonly>
+            <input type="text" name="kode_transaksi" class="form-control"
+                   value="TRX{{ time() }}" readonly>
           </div>
           <div class="mb-3">
             <label class="form-label">Nama Pengguna</label>
-            <input type="text" name="nama_pengguna" class="form-control" required>
+            <input type="text" name="nama_pengguna" class="form-control" value="{{ old('nama_pengguna') }}" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Tanggal Transaksi</label>
-            <input type="date" name="tanggal_transaksi" class="form-control" required>
+            <input type="date" name="tanggal_transaksi" class="form-control" value="{{ old('tanggal_transaksi', date('Y-m-d')) }}" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Jenis Transaksi</label>
             <select name="jenis_transaksi" class="form-select" required>
-              <option value="bulanan">Bulanan</option>
-              <option value="tahunan">Tahunan</option>
+              <option value="bulanan" {{ old('jenis_transaksi')=='bulanan'?'selected':'' }}>Bulanan</option>
+              <option value="tahunan" {{ old('jenis_transaksi')=='tahunan'?'selected':'' }}>Tahunan</option>
             </select>
           </div>
           <div class="mb-3">
             <label class="form-label">Jumlah</label>
-            <input type="number" name="jumlah" class="form-control" required>
+            <input type="number" name="jumlah" class="form-control" value="{{ old('jumlah') }}" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="bi bi-check-circle"></i> Simpan Transaksi
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Bayar Iuran -->
+<div class="modal fade" id="formBayar" tabindex="-1" aria-labelledby="formBayarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ route('transaksi.store') }}" method="POST">
+        @csrf
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="formBayarLabel">Bayar Iuran Warga</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nama Warga</label>
+            <select name="nama_pengguna" class="form-select" required>
+              <option value="">-- Pilih Warga --</option>
+              @forelse($warga as $w)
+                <option value="{{ $w->nama }}">{{ $w->nama }}</option>
+              @empty
+                <option disabled>Tidak ada data warga</option>
+              @endforelse
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Tanggal Transaksi</label>
+            <input type="date" name="tanggal_transaksi" class="form-control"
+                   value="{{ old('tanggal_transaksi', date('Y-m-d')) }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Jenis Transaksi</label>
+            <select name="jenis_transaksi" class="form-select" required>
+              <option value="bulanan" {{ old('jenis_transaksi')=='bulanan'?'selected':'' }}>Bulanan</option>
+              <option value="tahunan" {{ old('jenis_transaksi')=='tahunan'?'selected':'' }}>Tahunan</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Jumlah Bayar</label>
+            <input type="number" name="jumlah" class="form-control"
+                   value="{{ old('jumlah', 50000) }}" required>
+            <small class="text-muted">*Contoh: 50.000 untuk iuran bulanan</small>
           </div>
         </div>
         <div class="modal-footer border-0">
           <button type="submit" class="btn btn-success px-4">
-            <i class="bi bi-check-circle"></i> Simpan & Bayar
+            <i class="bi bi-cash-stack"></i> Bayar Sekarang
           </button>
         </div>
       </form>

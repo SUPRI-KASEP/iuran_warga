@@ -7,25 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    use HasFactory;
-
-
     protected $table = 'transaksi';
-
-
     protected $fillable = [
-        'kode_transaksi',
-        'nama_pengguna',
-        'tanggal_transaksi',
-        'jenis_transaksi',
-        'jumlah',
+        'kode_transaksi', 'nama_pengguna', 'tanggal_transaksi', 'jenis_transaksi', 'jumlah'
     ];
 
-    protected $dates = ['tanggal_transaksi'];
-
-
-    public function user()
+    public function pembayaran()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Pembayaran::class, 'transaksi_id');
+    }
+}
+
+// app/Models/Pembayaran.php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Pembayaran extends Model
+{
+    protected $table = 'pembayaran';
+    protected $fillable = [
+        'transaksi_id', 'nominal', 'tanggal_bayar'
+    ];
+
+    public function transaksi()
+    {
+        return $this->belongsTo(Transaksi::class);
     }
 }

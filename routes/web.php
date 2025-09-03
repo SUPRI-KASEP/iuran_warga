@@ -9,25 +9,32 @@ use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\TransaksiCon;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaCon;
+use App\Http\Controllers\WargaDashboardCon;
+use App\Http\Controllers\WargahomeCon;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/warga/home', [WargahomeCon::class, 'index'])->name('warga.home');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'Login'])->name('login.post');
 
-// logout harus POST
+
+Route::get('/warga/dashboard', [WargaDashboardCon::class, 'index'])->name('warga.dashboard');
+Route::post('/warga/dashboard', [WargaDashboardCon::class, 'store'])->name('warga.store');
+
+
+
 Route::post('/logout', function () {
     Auth::logout();
-    return redirect()->route('login');
+    return redirect()->route('home');
 })->name('logout');
 
 
-// Route dengan Middleware Auth untuk halaman-halaman lain
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/datawarga', [WargaCon::class, 'index'])->name('datawarga');
     Route::get('/admin/dashboard', [AdminCon::class, 'dashboard'])->name('dashboard');

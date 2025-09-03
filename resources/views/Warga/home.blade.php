@@ -5,22 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iuran Warga Online</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@tailwindcss/forms"></script>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
 
   <!-- Navbar -->
-  <header class="fixed w-full bg-white/70 backdrop-blur-lg shadow-md z-50">
+  <header class="fixed w-full bg-white/60 backdrop-blur-md shadow z-50">
     <div class="container mx-auto flex items-center justify-between px-6 py-4">
       <h1 class="text-2xl font-extrabold text-blue-600 tracking-wide">IuranWarga</h1>
-      <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
-        <a href="#manfaat" class="hover:text-blue-500 transition">Manfaat</a>
-        <a href="#fitur" class="hover:text-blue-500 transition">Fitur</a>
-        <a href="#harga" class="hover:text-blue-500 transition">Pricelist</a>
+      <nav class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+        <a href="{{ route('warga.dashboard') }}" class="hover:text-blue-600 transition">Dashboard
       </nav>
-      <a href="#daftar" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-        Daftar
-      </a>
     </div>
   </header>
 
@@ -33,10 +27,10 @@
           Platform Iuran Warga <br> Mudah, Rapi, Transparan
         </h2>
         <p class="text-lg mb-8 opacity-90">
-          Kelola iuran RT/RW Anda dengan lebih profesional. Laporan kas real-time, transparan, dan mudah diakses semua warga.
+          Kelola iuran RT/RW dengan lebih profesional. Laporan kas real-time, transparan, dan mudah diakses semua warga.
         </p>
         <a href="#daftar" class="bg-white text-blue-700 font-semibold px-8 py-3 rounded-xl shadow-lg hover:bg-gray-100 transition">
-          🚀 Daftarkan RT Anda Sekarang!
+          🚀 Daftarkan Diri Anda Sekarang!
         </a>
       </div>
       <!-- Right -->
@@ -52,8 +46,8 @@
   <section id="manfaat" class="container mx-auto py-24 px-6">
     <h3 class="text-3xl font-extrabold text-center mb-12 text-gray-800">Kenapa Harus Pakai <span class="text-blue-600">IuranWarga</span>?</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Sebelum -->
-      <div class="p-8 rounded-2xl shadow-lg bg-white hover:shadow-2xl transition">
+
+      <div class="p-8 rounded-2xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-1">
         <h4 class="text-xl font-bold text-gray-800 mb-6 text-center">❌ Sebelum Menggunakan</h4>
         <ul class="space-y-4 text-gray-700">
           <li>📄 Catatan manual mudah hilang.</li>
@@ -62,8 +56,7 @@
           <li>📢 Pengumuman via kertas manual.</li>
         </ul>
       </div>
-      <!-- Sesudah -->
-      <div class="p-8 rounded-2xl shadow-lg bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-2xl transition">
+      <div class="p-8 rounded-2xl shadow-lg bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-2xl transition transform hover:-translate-y-1">
         <h4 class="text-xl font-bold mb-6 text-center">✅ Setelah Menggunakan</h4>
         <ul class="space-y-4">
           <li>⚡ Penagihan online, cepat, aman.</li>
@@ -75,11 +68,11 @@
     </div>
   </section>
 
-  <!-- Call To Action -->
+  <!-- Daftar Section -->
   <section id="daftar" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20 text-center">
     <h3 class="text-3xl font-bold mb-6">Mulai Sekarang!</h3>
-    <p class="mb-8 text-lg opacity-90">Daftarkan RT Anda dan rasakan kemudahan mengelola iuran warga.</p>
-    <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-gray-100 transition">
+    <p class="mb-8 text-lg opacity-90">Daftarkan Diri anda dan rasakan kemudahan mengelola iuran warga.</p>
+    <a href="{{ route('login') }}" class="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-gray-100 transition">
       💡 Daftar Gratis
     </a>
   </section>

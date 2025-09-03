@@ -9,7 +9,7 @@ class Login
     public function handle($request, Closure $next)
     {
         if (!session()->has('user')) {
-            return redirect()->route((''));
+            return redirect()->route(('login.post'));
         }
 
         return $next($request);
