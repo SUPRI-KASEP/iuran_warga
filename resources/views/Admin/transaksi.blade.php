@@ -225,34 +225,31 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
+          <!-- Nama Warga -->
           <div class="mb-3">
             <label class="form-label">Nama Warga</label>
-            <select name="nama_pengguna" class="form-select" required>
+            <select name="warga_id" class="form-select" required>
               <option value="">-- Pilih Warga --</option>
-              @forelse($warga as $w)
-                <option value="{{ $w->nama }}">{{ $w->nama }}</option>
-              @empty
-                <option disabled>Tidak ada data warga</option>
-              @endforelse
+              @foreach($warga as $w)
+                <option value="{{ $w->id }}">{{ $w->nama }}</option>
+              @endforeach
             </select>
           </div>
+
+          <!-- Jenis Iuran -->
           <div class="mb-3">
-            <label class="form-label">Tanggal Transaksi</label>
-            <input type="date" name="tanggal_transaksi" class="form-control"
-                   value="{{ old('tanggal_transaksi', date('Y-m-d')) }}" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Jenis Transaksi</label>
+            <label class="form-label">Jenis Iuran</label>
             <select name="jenis_transaksi" class="form-select" required>
-              <option value="bulanan" {{ old('jenis_transaksi')=='bulanan'?'selected':'' }}>Bulanan</option>
-              <option value="tahunan" {{ old('jenis_transaksi')=='tahunan'?'selected':'' }}>Tahunan</option>
+              <option value="bulanan">Bulanan</option>
+              <option value="tahunan">Tahunan</option>
             </select>
           </div>
+
+          <!-- Jumlah Bayar -->
           <div class="mb-3">
-            <label class="form-label">Jumlah Bayar</label>
-            <input type="number" name="jumlah" class="form-control"
-                   value="{{ old('jumlah', 50000) }}" required>
-            <small class="text-muted">*Contoh: 50.000 untuk iuran bulanan</small>
+            <label class="form-label">Total Bayar</label>
+            <input type="number" name="jumlah" class="form-control" value="{{ old('jumlah', 50000) }}" required>
+            <small class="text-muted">Contoh: 50000 untuk iuran bulanan</small>
           </div>
         </div>
         <div class="modal-footer border-0">

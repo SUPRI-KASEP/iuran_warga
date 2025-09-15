@@ -8,45 +8,44 @@ use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
+
 class TransaksiCon extends Controller
 {
     // Menampilkan daftar transaksi
     public function index()
     {
         $data['transaksi'] = Transaksi::orderBy('tanggal_transaksi', 'desc')->get();
-        $data['warga'] = Transaksi::all();
-        return view('admin.transaksi', $data);
+        $data['warga'] = Warga::all();
+        return view('Admin.transaksi', $data);
     }
 
     // Menambahkan transaksi baru
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pengguna'   => 'required|string|max:100',
-            'jenis_transaksi' => 'required|in:bulanan,tahunan',
-            'jumlah'          => 'required|numeric|min:1',
+            'warga_id'         => 'required|exists:warga,id',
+            'jenis_transaksi'  => 'required|in:bulanan,tahunan',
+            'jumlah'           => 'required|numeric|min:1',
         ]);
 
+        $warga = Warga::findOrFail($request->warga_id);
 
         $transaksi = Transaksi::create([
-
             'kode_transaksi'    => 'TRX' . time(),
-            'nama_pengguna'     => $request->nama_pengguna,
+            'nama_pengguna'     => $warga->nama,   // otomatis ambil dari tabel warga
             'tanggal_transaksi' => now(),
             'jenis_transaksi'   => $request->jenis_transaksi,
             'jumlah'            => $request->jumlah,
         ]);
 
-
-        $warga = \App\Models\Warga::where('nama', $request->nama_pengguna)->first();
-        if ($warga) {
+        // update total bayar (pastikan field ini ada di tabel warga)
+        if (isset($warga->total_bayar)) {
             $warga->total_bayar += $request->jumlah;
             $warga->save();
         }
 
         return redirect()->route('transaksi.index')->with('success', 'Pembayaran berhasil disimpan!');
     }
-
 
     // Menghapus transaksi
     public function destroy($id)
@@ -56,7 +55,6 @@ class TransaksiCon extends Controller
 
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus!');
     }
-
 
     public function dashboard()
     {
@@ -82,6 +80,6 @@ class TransaksiCon extends Controller
             $averageMonthly[] = round($total / ($index + 1));
         }
 
-        return view('admin.dashboard', compact('labels', 'monthlyIncome', 'totalCumulative', 'averageMonthly'));
+        return view('Admin.dashboard', compact('labels', 'monthlyIncome', 'totalCumulative', 'averageMonthly'));
     }
 }

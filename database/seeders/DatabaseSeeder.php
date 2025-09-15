@@ -36,5 +36,9 @@ class DatabaseSeeder extends Seeder
             'address' => 'Jl. Cileles No. 3',
             'level' => 'warga',
         ]);
+
+        $this->call([
+            WargaSeeder::class,
+        ]);
     }
 }

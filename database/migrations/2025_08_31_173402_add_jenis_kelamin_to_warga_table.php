@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('warga', function (Blueprint $table) {
-                $table->enum('jenis_kelamin', ['L', 'P'])->after('nama');
+                $table->enum('jk', ['L', 'P'])->after('nama');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('warga', function (Blueprint $table) {
-            $table->dropColumn('jenis_kelamin');
+            $table->dropColumn('jk');
         });
     }
 };
