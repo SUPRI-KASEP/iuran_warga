@@ -99,9 +99,6 @@
       <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#formBayar">
         <i class="bi bi-cash-coin"></i> Bayar Iuran
       </button>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formTambah">
-        <i class="bi bi-plus-circle"></i> Tambah Transaksi
-      </button>
     </div>
   </div>
 
@@ -164,52 +161,6 @@
         @endforelse
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Tambah Transaksi -->
-<div class="modal fade" id="formTambah" tabindex="-1" aria-labelledby="formTambahLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form action="{{ route('transaksi.store') }}" method="POST">
-        @csrf
-        <div class="modal-header border-0">
-          <h5 class="modal-title fw-bold" id="formTambahLabel">Tambah Transaksi Manual</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Kode Transaksi</label>
-            <input type="text" name="kode_transaksi" class="form-control"
-                   value="TRX{{ time() }}" readonly>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Nama Pengguna</label>
-            <input type="text" name="nama_pengguna" class="form-control" value="{{ old('nama_pengguna') }}" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Tanggal Transaksi</label>
-            <input type="date" name="tanggal_transaksi" class="form-control" value="{{ old('tanggal_transaksi', date('Y-m-d')) }}" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Jenis Transaksi</label>
-            <select name="jenis_transaksi" class="form-select" required>
-              <option value="bulanan" {{ old('jenis_transaksi')=='bulanan'?'selected':'' }}>Bulanan</option>
-              <option value="tahunan" {{ old('jenis_transaksi')=='tahunan'?'selected':'' }}>Tahunan</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Jumlah</label>
-            <input type="number" name="jumlah" class="form-control" value="{{ old('jumlah') }}" required>
-          </div>
-        </div>
-        <div class="modal-footer border-0">
-          <button type="submit" class="btn btn-primary px-4">
-            <i class="bi bi-check-circle"></i> Simpan Transaksi
-          </button>
-        </div>
-      </form>
     </div>
   </div>
 </div>

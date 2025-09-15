@@ -18,7 +18,7 @@ class WargaSeeder extends Seeder
             [
                 'nik' => '3276010101010001',
                 'nama' => 'Bayu',
-                'jk' => 'L/P',
+                'jk' => 'L',
                 'kategori' => 'Kepala Keluarga',
                 'alamat' => 'Jl. Melati No.1',
                 'no_rumah' => 'A1',
@@ -27,7 +27,7 @@ class WargaSeeder extends Seeder
             [
                 'nik' => '3276010101010002',
                 'nama' => 'Jarwo',
-                'jk' => 'L/P',
+                'jk' => 'L',
                 'kategori' => 'Warga',
                 'alamat' => 'Jl. Melati No.2',
                 'no_rumah' => 'A2',
@@ -36,7 +36,7 @@ class WargaSeeder extends Seeder
             [
                 'nik' => '3276010101010003',
                 'nama' => 'Supri',
-                'jk' => 'L/P',
+                'jk' => 'L',
                 'kategori' => 'Warga',
                 'alamat' => 'Jl. Melati No.3',
                 'no_rumah' => 'A3',
