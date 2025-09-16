@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
 
     // Relasi ke iuran anggota
-    public function duesMemberships()
+    public function duesMember()
     {
         return $this->hasMany(DuesMember::class, 'iduser');
     }

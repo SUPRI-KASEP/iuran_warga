@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('dues_members', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('iduser')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_dues_category')->constrained('dues_categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

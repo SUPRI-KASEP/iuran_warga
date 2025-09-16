@@ -23,6 +23,9 @@ class WargaSeeder extends Seeder
                 'alamat' => 'Jl. Melati No.1',
                 'no_rumah' => 'A1',
                 'status' => 'aktif',
+                'username' => 'bayu123',
+                'password' => bcrypt('123'),
+                'id_dues_category' => 1
             ],
             [
                 'nik' => '3276010101010002',
@@ -32,6 +35,9 @@ class WargaSeeder extends Seeder
                 'alamat' => 'Jl. Melati No.2',
                 'no_rumah' => 'A2',
                 'status' => 'aktif',
+                'username' => 'jarwo123',
+                'password' => bcrypt('123'),
+                'id_dues_category' => 1,
             ],
             [
                 'nik' => '3276010101010003',
@@ -41,6 +47,9 @@ class WargaSeeder extends Seeder
                 'alamat' => 'Jl. Melati No.3',
                 'no_rumah' => 'A3',
                 'status' => 'aktif',
+                'username' => 'cupli123',
+                'password' => bcrypt('123'),
+                'id_dues_category' => 1
             ],
         ]);
     }

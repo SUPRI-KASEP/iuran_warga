@@ -67,6 +67,16 @@
   </style>
 </head>
 <body>
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <strong>Terjadi kesalahan!</strong>
+      <ul class="mb-0">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
 
   <div class="form-card">
     <h3 class="form-title">Tambah Data Warga</h3>
@@ -87,29 +97,18 @@
       </div>
 
       <div class="mb-3">
-        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-        <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
+        <label for="jk" class="form-label">Jenis Kelamin</label>
+        <select class="form-select @error('jk') is-invalid @enderror" id="jk" name="jk">
           <option value="">-- Pilih --</option>
-          <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
-          <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+          <option value="L" {{ old('jk') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+          <option value="P" {{ old('jk') == 'P' ? 'selected' : '' }}>Perempuan</option>
         </select>
-        @error('jenis_kelamin') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        @error('jk') <div class="invalid-feedback">{{ $message }}</div> @enderror
       </div>
-
-      <div class="mb-4">
-        <label for="kategori" class="form-label">Kategori</label>
-        <select class="form-select @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-          <option value="">-- Pilih --</option>
-          <option value="Admin" {{ old('kategori') == 'Admin' ? 'selected' : '' }}>Admin</option>
-          <option value="Warga" {{ old('kategori') == 'Warga' ? 'selected' : '' }}>Warga</option>
-        </select>
-        @error('kategori') <div class="invalid-feedback">{{ $message }}</div> @enderror
-      </div>
-
 
       <div class="mb-3">
         <label for="alamat" class="form-label">Alamat</label>
-        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat') }}">
+        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat">{{ old('alamat') }}</textarea>
         @error('alamat') <div class="invalid-feedback">{{ $message }}</div> @enderror
       </div>
 
@@ -119,15 +118,42 @@
         @error('no_rumah') <div class="invalid-feedback">{{ $message }}</div> @enderror
       </div>
 
+      <div class="mb-3">
+        <label for="id_dues_category" class="form-label">Kategori Iuran</label>
+        <select class="form-select @error('id_dues_category') is-invalid @enderror" id="id_dues_category" name="id_dues_category">
+          <option value="">-- Pilih Kategori --</option>
+          @foreach ($duesCategories as $cat)
+            <option value="{{ $cat->id }}" {{ old('id_dues_category') == $cat->id ? 'selected' : '' }}>
+              {{ $cat->name }} - Rp{{ number_format($cat->amount,0,',','.') }}/{{ $cat->periode }}
+            </option>
+          @endforeach
+        </select>
+        @error('id_dues_category') <div class="invalid-feedback">{{ $message }}</div> @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
+        @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+        @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+      </div>
+
       <div class="mb-4">
         <label for="status" class="form-label">Status</label>
         <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
           <option value="">-- Pilih --</option>
-          <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-          <option value="Menunggu" {{ old('status') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+          <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+          <option value="nonaktif" {{ old('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
         </select>
         @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
       </div>
+
+      {{-- level default warga, jadi tidak ditampilkan --}}
 
       <div class="d-flex justify-content-between">
         <button type="submit" class="btn btn-primary px-4">Simpan</button>

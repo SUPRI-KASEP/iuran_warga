@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/transaksi/store', [TransaksiCon::class, 'store'])->name('transaksi.store');
     Route::delete('/transaksi/{id}', [TransaksiCon::class, 'destroy'])->name('transaksi.destroy');
 
+    Route::get('/admin/datawarga', [WargaCon::class, 'create'])->name('datawarga.create');
+    Route::post('/datawarga/store', [WargaCon::class, 'store'])->name('admin.datawarga');
+
 
     Route::get('/dues_categories', [DuesCategoryController::class, 'index'])->name('admin.dues_categories');
     Route::get('/dues_categories/create', [DuesCategoryController::class, 'create'])->name('admin.dues_categories.create');

@@ -17,9 +17,9 @@ class DuesCategory extends Model
         'description',
     ];
 
-   
+
     public function members()
     {
-        return $this->hasMany(DuesMember::class, 'idduescategory');
+        return $this->hasMany(DuesMember::class, 'id_dues_category');
     }
 }

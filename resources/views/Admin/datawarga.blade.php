@@ -51,7 +51,7 @@
   </style>
 </head>
 <body>
-  
+
   <div class="sidebar">
     <h3>Data Warga</h3>
     <ul class="nav flex-column mt-4">
@@ -86,7 +86,7 @@
             <td>{{ $index + 1 }}</td>
             <td>{{ $item->nik }}</td>
             <td>{{ $item->nama }}</td>
-            <td>{{ $item->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+            <td>{{ $item->jk == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
             <td>{{ $item->kategori == 'Admin' ? 'Admin' : 'Warga' }}</td>
             <td>{{ $item->alamat }}</td>
             <td>{{ $item->no_rumah }}</td>

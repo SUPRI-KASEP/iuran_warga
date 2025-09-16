@@ -11,9 +11,13 @@ return new class extends Migration {
             $table->string('nama');
             $table->string('nik')->unique();
             $table->enum('jk', ['L', 'P']);
+            $table->enum('level', ['warga'])->default('warga');
             $table->text('alamat');
             $table->string('no_rumah');
             $table->string('status');
+            $table->string('username')->unique();
+            $table->string('password');
+            $table->foreignId('id_dues_category')->constrained('dues_categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

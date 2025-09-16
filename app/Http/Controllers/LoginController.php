@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,13 @@ class LoginController extends Controller
         ]);
 
         // Ambil user berdasarkan username
-        $user = User::where('username', $request->username)->first();
+        $userusername = User::where('username', $request->username)->first();
+        $wargausername = Warga::where('username', $request->username)->first();
+        if ($userusername) {
+            $user = User::where('username', $request->username)->first();
+        }elseif ($wargausername) {
+            $user = Warga::where('username', $request->username)->first();
+        }
 
         if ($user && Hash::check($request->password, $user->password)) {
             // Autentikasi berhasil, login menggunakan Auth

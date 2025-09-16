@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Transaksi;
+use App\Models\Warga;
 use Illuminate\Support\Facades\Auth;
 
 class WargaDashboardCon extends Controller
@@ -11,7 +12,7 @@ class WargaDashboardCon extends Controller
     public function index()
     {
         // jumlah warga
-        $jumlah_warga = User::where('level', 'warga')->count();
+        $jumlah_warga = Warga::all()->count();
 
         // total pemasukan bulan ini
         $bulan_ini = Transaksi::whereMonth('tanggal_transaksi', now()->month)

@@ -23,6 +23,6 @@ class DuesMember extends Model
     // Relasi ke kategori iuran
     public function duesCategory()
     {
-        return $this->belongsTo(DuesCategory::class, 'idduescategory');
+        return $this->belongsTo(DuesCategory::class, 'id_dues_category');
     }
 }
