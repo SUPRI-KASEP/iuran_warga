@@ -121,6 +121,7 @@
             <th>Nama Pengguna</th>
             <th>Tanggal</th>
             <th>Jenis</th>
+            <th>Category</th>
             <th>Jumlah</th>
             <th>Aksi</th>
           </tr>
@@ -141,6 +142,8 @@
                 <span class="badge bg-secondary px-3 py-2">{{ ucfirst($item->jenis_transaksi) }}</span>
               @endif
             </td>
+        <td>{{ $item->dc->name ?? '-' }}</td>
+
             <td><strong>Rp {{ number_format($item->jumlah, 0, ',', '.') }}</strong></td>
             <td>
               <form action="{{ route('transaksi.destroy', $item->id) }}" method="POST"
@@ -195,7 +198,14 @@
               <option value="tahunan">Tahunan</option>
             </select>
           </div>
-
+          <div class="mb-3">
+            <label class="form-label">Jenis Category</label>
+            <select name="id_dc" class="form-select" required>
+                @foreach ($dc as $item)
+              <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+          </div>
           <!-- Jumlah Bayar -->
           <div class="mb-3">
             <label class="form-label">Total Bayar</label>

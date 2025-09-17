@@ -16,6 +16,7 @@ class Transaksi extends Model
         'nama_pengguna',
         'tanggal_transaksi',
         'jenis_transaksi',
+        'id_dc',
         'jumlah',
         'warga_id',
         'kategori_id',
@@ -44,4 +45,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(DuesCategory::class, 'kategori_id');
     }
+    public function dc()
+{
+    return $this->belongsTo(DuesCategory::class, 'id_dc', );
+}
+
 }

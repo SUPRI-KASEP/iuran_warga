@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama_pengguna');
             $table->date('tanggal_transaksi');
             $table->enum('jenis_transaksi', ['bulanan','tahunan']);
+            $table->integer('id_dc')->nullable();
             $table->decimal('jumlah', 12, 2);
             $table->timestamps();
 

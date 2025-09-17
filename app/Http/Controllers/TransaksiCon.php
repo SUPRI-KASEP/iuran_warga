@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DuesCategory;
 use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\Warga;
@@ -14,7 +15,8 @@ class TransaksiCon extends Controller
     // Menampilkan daftar transaksi
     public function index()
     {
-        $data['transaksi'] = Transaksi::orderBy('tanggal_transaksi', 'desc')->get();
+        $data['dc'] = DuesCategory::all();
+       $data['transaksi'] = Transaksi::with('dc')->orderBy('tanggal_transaksi', 'desc')->get();
         $data['warga'] = Warga::all();
         return view('Admin.transaksi', $data);
     }
@@ -25,6 +27,7 @@ class TransaksiCon extends Controller
         $request->validate([
             'warga_id'         => 'required|exists:warga,id',
             'jenis_transaksi'  => 'required|in:bulanan,tahunan',
+            'id_dc' => 'required|integer',
             'jumlah'           => 'required|numeric|min:1',
         ]);
 
@@ -32,13 +35,13 @@ class TransaksiCon extends Controller
 
         $transaksi = Transaksi::create([
             'kode_transaksi'    => 'TRX' . time(),
-            'nama_pengguna'     => $warga->nama,   // otomatis ambil dari tabel warga
+            'nama_pengguna'     => $warga->nama,
             'tanggal_transaksi' => now(),
             'jenis_transaksi'   => $request->jenis_transaksi,
+            'id_dc' => $request->id_dc,
             'jumlah'            => $request->jumlah,
         ]);
 
-        // update total bayar (pastikan field ini ada di tabel warga)
         if (isset($warga->total_bayar)) {
             $warga->total_bayar += $request->jumlah;
             $warga->save();
