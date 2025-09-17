@@ -173,11 +173,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="{{ route('transaksi.store') }}" method="POST">
-        @csrf
         <div class="modal-header border-0">
           <h5 class="modal-title fw-bold" id="formBayarLabel">Bayar Iuran Warga</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
+        @csrf
+
         <div class="modal-body">
           <!-- Nama Warga -->
           <div class="mb-3">
