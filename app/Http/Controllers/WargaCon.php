@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DuesCategory;
-use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class WargaCon extends Controller
 {
@@ -42,23 +40,16 @@ class WargaCon extends Controller
             'status'          => 'required|in:aktif,nonaktif',
             'username'        => 'required|string|max:100|unique:warga,username',
             'password'        => 'required|string',
-            'kategori'        => 'nullable',
             'id_dues_category'=> 'required|exists:dues_categories,id',
         ]);
 
         $validasi['kategori'] = 'warga';
+        $validasi['password'] = bcrypt($request->password);
+        $validasi['level'] = 'warga';
 
-// Hash password sebelum disimpan
-$validasi['password'] = bcrypt($request->password);
+        Warga::create($validasi);
 
-// level default = warga
-$validasi['level'] = 'warga';
-
-// simpan ke tabel warga
-Warga::create($validasi);
-
-return redirect()->route('datawarga')->with('success', 'Data warga berhasil ditambahkan.');
-
+        return redirect()->route('datawarga')->with('success', 'Data warga berhasil ditambahkan.');
     }
 
     /**
@@ -66,8 +57,8 @@ return redirect()->route('datawarga')->with('success', 'Data warga berhasil dita
      */
     public function edit($id) {
         $warga = Warga::findOrFail($id);
-        $data ['duesCategories'] = DuesCategory::all();
-        return view('Admin.editdata', compact('warga'),$data);
+        $data['duesCategories'] = DuesCategory::all();
+        return view('Admin.editdata', compact('warga'), $data);
     }
 
     /**
@@ -75,26 +66,36 @@ return redirect()->route('datawarga')->with('success', 'Data warga berhasil dita
      */
     public function update(Request $request, $id) {
         $request->validate([
-            'nik'           => 'required|numeric|unique:warga,nik,' . $id,
-            'nama'          => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:L,P',
-            'kategori'      => 'required|in:Admin,Warga',
-            'alamat'        => 'required|string',
-            'no_rumah'      => 'required|string',
-            'status'        => 'required|in:Aktif,Menunggu',
+            'nik'             => 'required|numeric|unique:warga,nik,' . $id,
+            'nama'            => 'required|string|max:255',
+            'jk'              => 'required|in:L,P',
+            'alamat'          => 'required|string',
+            'no_rumah'        => 'required|string|max:50',
+            'status'          => 'required|in:aktif,nonaktif',
+            'username'        => 'required|string|max:100|unique:warga,username,' . $id,
+            'password'        => 'nullable|string',
+            'id_dues_category'=> 'required|exists:dues_categories,id',
         ]);
 
         $warga = Warga::findOrFail($id);
 
-        $warga->update([
-            'nik'           => $request->nik,
-            'nama'          => $request->nama,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'kategori'      => $request->kategori,
-            'alamat'        => $request->alamat,
-            'no_rumah'      => $request->no_rumah,
-            'status'        => $request->status,
-        ]);
+        $dataUpdate = [
+            'nik'             => $request->nik,
+            'nama'            => $request->nama,
+            'jk'              => $request->jk,
+            'alamat'          => $request->alamat,
+            'no_rumah'        => $request->no_rumah,
+            'status'          => $request->status,
+            'username'        => $request->username,
+            'id_dues_category'=> $request->id_dues_category,
+        ];
+
+        // kalau password diisi, update password
+        if ($request->filled('password')) {
+            $dataUpdate['password'] = bcrypt($request->password);
+        }
+
+        $warga->update($dataUpdate);
 
         return redirect()->route('datawarga')->with('success', 'Data warga berhasil diperbarui.');
     }
