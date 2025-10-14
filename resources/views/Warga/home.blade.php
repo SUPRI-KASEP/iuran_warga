@@ -13,7 +13,7 @@
     <div class="container mx-auto flex items-center justify-between px-6 py-4">
       <h1 class="text-2xl font-extrabold text-blue-600 tracking-wide">IuranWarga</h1>
       <nav class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
-        <a href="{{ route('warga.dashboard') }}" class="hover:text-blue-600 transition">Dashboard
+        <a href="{{ route('warga.dashboard') }}" class="hover:text-blue-600 transition">History
       </nav>
     </div>
   </header>

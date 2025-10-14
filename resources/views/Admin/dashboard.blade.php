@@ -207,7 +207,6 @@
         const labels           = @json($labels);
         const monthlyIncome    = @json($monthlyIncome);
         const cumulativeIncome = @json($totalCumulative);
-
         const yearLabels       = @json($yearLabels);
         const annualIncome     = @json($annualIncome);
 
