@@ -24,12 +24,20 @@ class TransaksiCon extends Controller
     // Menambahkan transaksi baru
     public function store(Request $request)
     {
-        $request->validate([
+        $validated=$request->validate([
             'warga_id'         => 'required|exists:warga,id',
             'jenis_transaksi'  => 'required|in:bulanan,tahunan',
             'id_dc' => 'required|integer',
             'jumlah'           => 'required|numeric|min:1',
         ]);
+
+        $category = DuesCategory::find($validated['dues_categories_id']);
+        $validated['nominal'] = $category->nominal;
+        $validated['period'] = $category->period;
+        $validated['jumlah_tagihan'] = $category->nominal;
+        $validated['nominal_tagihan'] = $category->nominal;
+
+        Transaksi::create($validated);
 
         $warga = Warga::findOrFail($request->warga_id);
 

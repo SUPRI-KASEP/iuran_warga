@@ -230,5 +230,15 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('id_dc').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const period = selectedOption.getAttribute('data-period');
+    const nominal = selectedOption.getAttribute('data-nominal');
+
+    document.getElementById('period').value = period || '';
+    document.getElementById('nominal').value = nominal || '';
+});
+</script>
 </body>
 </html>

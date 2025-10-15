@@ -21,11 +21,9 @@ class DuesCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'periode' => 'required|in:bulanan,tahunan',
+            'name' => 'required|string',
+            'periode' => 'required|in:mingguan,bulanan,tahunan',
             'amount' => 'required|numeric',
-            'status' => 'required|in:aktif,nonaktif',
-            'description' => 'nullable|string'
         ]);
 
         DuesCategory::create($request->all());
@@ -38,11 +36,11 @@ class DuesCategoryController extends Controller
     public function update(Request $request, DuesCategory $duesCategory)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'periode' => 'required|in:bulanan,tahunan',
-            'amount' => 'required|numeric',
-            'status' => 'required|in:aktif,nonaktif',
-            'description' => 'nullable|string'
+            'name' => $request->name,
+            'periode' => $request->periode,
+            'amount' => $request->amount, // ✅ sesuai form & kolom
+            'status' => $request->status,
+            'description' => $request->description,
         ]);
 
     }

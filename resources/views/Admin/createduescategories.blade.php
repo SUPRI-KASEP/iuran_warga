@@ -28,6 +28,7 @@
                 <form action="{{ route('admin.dues_categories.store') }}" method="POST">
                     @csrf
 
+                    <!-- Nama Kategori -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nama Kategori</label>
                         <input type="text" name="name" class="form-control"
@@ -35,22 +36,26 @@
                                placeholder="Contoh: Iuran Kebersihan" required>
                     </div>
 
+                    <!-- Periode -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Periode</label>
-                        <select name="periode" class="form-select" required>
+                        <select name="periode" id="periode" class="form-select" required>
                             <option value="" disabled {{ old('periode') ? '' : 'selected' }}>-- Pilih Periode --</option>
+                            <option value="mingguan" {{ old('periode') == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
                             <option value="bulanan" {{ old('periode') == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
                             <option value="tahunan" {{ old('periode') == 'tahunan' ? 'selected' : '' }}>Tahunan</option>
                         </select>
                     </div>
 
+                    <!-- Nominal -->
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Nominal</label>
-                        <input type="number" name="amount" class="form-control"
-                               value="{{ old('amount') }}"
-                               placeholder="Contoh: 50000" required>
+                        <label class="form-label fw-semibold">Nominal (Rp)</label>
+                        <input type="number" name="amount" id="amount" class="form-control"
+                            value="{{ old('amount') }}"
+                            placeholder="Masukkan nominal iuran..." required>
                     </div>
 
+                    <!-- Status -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Status</label>
                         <select name="status" class="form-select" required>
@@ -60,12 +65,14 @@
                         </select>
                     </div>
 
+                    <!-- Deskripsi -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Deskripsi (Opsional)</label>
                         <textarea name="description" class="form-control" rows="3"
                                   placeholder="Tuliskan keterangan tambahan...">{{ old('description') }}</textarea>
                     </div>
 
+                    <!-- Tombol Aksi -->
                     <div class="d-flex justify-content-end gap-2">
                         <button type="submit" class="btn btn-success px-4">💾 Simpan</button>
                         <a href="{{ route('admin.dues_categories') }}" class="btn btn-secondary px-4">Batal</a>
@@ -74,6 +81,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Script otomatis nominal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const periodeSelect = document.getElementById('periode');
+            const nominalInput = document.getElementById('amount');
+
+            periodeSelect.addEventListener('change', function () {
+                const value = this.value;
+                if (value === 'mingguan') {
+                    nominalInput.value = 5000;
+                } else if (value === 'bulanan') {
+                    nominalInput.value = 20000;
+                } else if (value === 'tahunan') {
+                    nominalInput.value = 260000;
+                } else {
+                    nominalInput.value = '';
+                }
+            });
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
