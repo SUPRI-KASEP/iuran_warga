@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('jenis_transaksi', ['mingguan','bulanan','tahunan']);
             $table->integer('id_dc')->nullable();
             $table->decimal('jumlah', 12, 2);
+            $table->unsignedBigInteger('warga_id')->nullable();
+            $table->foreign('warga_id')->references('id')->on('warga')->onDelete('cascade');
             $table->timestamps();
 
         });

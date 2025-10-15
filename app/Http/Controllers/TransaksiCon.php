@@ -24,34 +24,26 @@ class TransaksiCon extends Controller
     // Menambahkan transaksi baru
     public function store(Request $request)
     {
-        $validated=$request->validate([
+        $validated = $request->validate([
             'warga_id'         => 'required|exists:warga,id',
-            'jenis_transaksi'  => 'required|in:bulanan,tahunan',
-            'id_dc' => 'required|integer',
-            'jumlah'           => 'required|numeric|min:1',
+            'id_dc'            => 'required|exists:dues_categories,id',
         ]);
 
-        $category = DuesCategory::find($validated['dues_categories_id']);
-        $validated['nominal'] = $category->nominal;
-        $validated['period'] = $category->period;
-        $validated['jumlah_tagihan'] = $category->nominal;
-        $validated['nominal_tagihan'] = $category->nominal;
-
-        Transaksi::create($validated);
-
-        $warga = Warga::findOrFail($request->warga_id);
+        $category = DuesCategory::findOrFail($validated['id_dc']);
+        $warga = Warga::findOrFail($validated['warga_id']);
 
         $transaksi = Transaksi::create([
             'kode_transaksi'    => 'TRX' . time(),
             'nama_pengguna'     => $warga->nama,
             'tanggal_transaksi' => now(),
-            'jenis_transaksi'   => $request->jenis_transaksi,
-            'id_dc' => $request->id_dc,
-            'jumlah'            => $request->jumlah,
+            'jenis_transaksi'   => $category->periode,
+            'id_dc'             => $category->id,
+            'jumlah'            => $category->amount,
+            'warga_id'          => $warga->id,
         ]);
 
         if (isset($warga->total_bayar)) {
-            $warga->total_bayar += $request->jumlah;
+            $warga->total_bayar += $category->amount;
             $warga->save();
         }
 

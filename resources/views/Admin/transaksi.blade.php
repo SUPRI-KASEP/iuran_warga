@@ -183,35 +183,35 @@
           <!-- Nama Warga -->
           <div class="mb-3">
             <label class="form-label">Nama Warga</label>
-            <select name="warga_id" class="form-select" required>
+            <select name="warga_id" id="warga_id" class="form-select" required>
               <option value="">-- Pilih Warga --</option>
               @foreach($warga as $w)
-                <option value="{{ $w->id }}">{{ $w->nama }}</option>
+                <option value="{{ $w->id }}" data-dues-category="{{ $w->id_dues_category }}">{{ $w->nama }}</option>
               @endforeach
             </select>
           </div>
 
-          <!-- Jenis Iuran -->
-          <div class="mb-3">
-            <label class="form-label">Jenis Iuran</label>
-            <select name="jenis_transaksi" class="form-select" required>
-              <option value="bulanan">Bulanan</option>
-              <option value="tahunan">Tahunan</option>
-            </select>
-          </div>
+          <!-- Jenis Category -->
           <div class="mb-3">
             <label class="form-label">Jenis Category</label>
-            <select name="id_dc" class="form-select" required>
-                @foreach ($dc as $item)
-              <option value="{{ $item->id }}">{{ $item->name }}</option>
-                @endforeach
+            <select name="id_dc" id="id_dc" class="form-select" required>
+              <option value="">-- Pilih Category --</option>
+              @foreach ($dc as $item)
+                <option value="{{ $item->id }}" data-periode="{{ $item->periode }}" data-amount="{{ $item->amount }}">{{ $item->name }}</option>
+              @endforeach
             </select>
           </div>
-          <!-- Jumlah Bayar -->
+
+          <!-- Jenis Iuran (Auto-filled) -->
+          <div class="mb-3">
+            <label class="form-label">Jenis Iuran</label>
+            <input type="text" id="jenis_transaksi" class="form-control" readonly>
+          </div>
+
+          <!-- Jumlah Bayar (Auto-filled) -->
           <div class="mb-3">
             <label class="form-label">Total Bayar</label>
-            <input type="number" name="jumlah" class="form-control" value="{{ old('jumlah', 50000) }}" required>
-            <small class="text-muted">Contoh: 50000 untuk iuran bulanan</small>
+            <input type="number" id="jumlah" name="jumlah" class="form-control" readonly required>
           </div>
         </div>
         <div class="modal-footer border-0">
@@ -231,13 +231,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+document.getElementById('warga_id').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const duesCategoryId = selectedOption.getAttribute('data-dues-category');
+    if (duesCategoryId) {
+        document.getElementById('id_dc').value = duesCategoryId;
+        // Trigger change event to auto-fill fields
+        document.getElementById('id_dc').dispatchEvent(new Event('change'));
+    }
+});
+
 document.getElementById('id_dc').addEventListener('change', function() {
     const selectedOption = this.options[this.selectedIndex];
-    const period = selectedOption.getAttribute('data-period');
-    const nominal = selectedOption.getAttribute('data-nominal');
+    const periode = selectedOption.getAttribute('data-periode');
+    const amount = selectedOption.getAttribute('data-amount');
 
-    document.getElementById('period').value = period || '';
-    document.getElementById('nominal').value = nominal || '';
+    document.getElementById('jenis_transaksi').value = periode || '';
+    document.getElementById('jumlah').value = amount || '';
 });
 </script>
 </body>
