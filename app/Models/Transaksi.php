@@ -46,8 +46,8 @@ class Transaksi extends Model
         return $this->belongsTo(DuesCategory::class, 'kategori_id');
     }
     public function dc()
-{
-    return $this->belongsTo(DuesCategory::class, 'id_dc', );
-}
+    {
+        return $this->belongsTo(DuesCategory::class, 'id_dc', );
+    }
 
 }

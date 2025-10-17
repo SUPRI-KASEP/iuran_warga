@@ -40,7 +40,7 @@ class LoginController extends Controller
             // Redirect ke dashboard sesuai level pengguna
             return ($user->level === 'admin')
                 ? redirect('/admin/dashboard')
-                : redirect('/warga/home');
+                : redirect('/warga/dashboard');
         }
 
         // Jika gagal login

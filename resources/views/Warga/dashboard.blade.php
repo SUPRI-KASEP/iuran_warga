@@ -80,9 +80,6 @@
       <!-- Header -->
       <div class="flex justify-between items-center mb-10">
         <h2 class="text-3xl font-bold text-red-500">Dashboard Warga</h2>
-        <span class="px-4 py-2 bg-gray-800 text-gray-200 rounded-full text-sm">
-          Selamat datang, {{ Auth::user()->nama ?? 'Pengguna' }}
-        </span>
       </div>
 
       <!-- Statistik Cards -->
@@ -142,7 +139,7 @@
                       <span class="badge bg-secondary px-3 py-1">{{ ucfirst($transaksi->jenis_transaksi) }}</span>
                     @endif
                   </td>
-                  <td class="py-2 px-4">{{ $transaksi->kategori->name ?? '-' }}</td>
+                  <td class="py-2 px-4">{{ $transaksi->dc->name ?? '-' }}</td>
                   <td class="py-2 px-4">Rp {{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
                 </tr>
               @empty
