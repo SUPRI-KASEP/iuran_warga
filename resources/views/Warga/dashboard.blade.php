@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Warga</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   <style>
     body {
@@ -81,7 +81,7 @@
       <div class="flex justify-between items-center mb-10">
         <h2 class="text-3xl font-bold text-red-500">Dashboard Warga</h2>
         <span class="px-4 py-2 bg-gray-800 text-gray-200 rounded-full text-sm">
-          Selamat datang, {{ Auth::user()->name ?? 'Tamu' }}
+          Selamat datang, {{ Auth::user()->nama ?? 'Pengguna' }}
         </span>
       </div>
 
@@ -112,50 +112,51 @@
         </div>
       </div>
 
-      <!-- Grafik Pemasukan -->
-      <div class="card p-8 mb-10">
+      <!-- Histori Transaksi -->
+      <div class="card p-8">
         <h3 class="text-xl font-semibold text-white mb-6">
-          📊 Grafik Pemasukan Per Bulan
+          📋 Histori Transaksi Anda
         </h3>
-        <canvas id="chartPemasukan"></canvas>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-gray-300">
+            <thead>
+              <tr class="border-b border-gray-600">
+                <th class="py-2 px-4">Kode Transaksi</th>
+                <th class="py-2 px-4">Tanggal</th>
+                <th class="py-2 px-4">Jenis</th>
+                <th class="py-2 px-4">Kategori</th>
+                <th class="py-2 px-4">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($histori_transaksi ?? [] as $transaksi)
+                <tr class="border-b border-gray-700 hover:bg-gray-700">
+                  <td class="py-2 px-4">{{ $transaksi->kode_transaksi }}</td>
+                  <td class="py-2 px-4">{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y') }}</td>
+                  <td class="py-2 px-4">
+                    @if($transaksi->jenis_transaksi === 'bulanan')
+                      <span class="badge bg-info px-3 py-1">Bulanan</span>
+                    @elseif($transaksi->jenis_transaksi === 'tahunan')
+                      <span class="badge bg-success px-3 py-1">Tahunan</span>
+                    @else
+                      <span class="badge bg-secondary px-3 py-1">{{ ucfirst($transaksi->jenis_transaksi) }}</span>
+                    @endif
+                  </td>
+                  <td class="py-2 px-4">{{ $transaksi->kategori->name ?? '-' }}</td>
+                  <td class="py-2 px-4">Rp {{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
+                </tr>
+              @empty
+                <tr>
+                  <td colspan="5" class="py-4 px-4 text-center text-gray-500">Belum ada transaksi.</td>
+                </tr>
+              @endforelse
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   </div>
 
-  <!-- Chart JS -->
-  <script>
-    const ctx = document.getElementById('chartPemasukan').getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: {!! json_encode($bulan ?? ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']) !!},
-        datasets: [{
-          label: 'Pemasukan (Rp)',
-          data: {!! json_encode($data_pemasukan ?? array_fill(0, 12, 0)) !!},
-          backgroundColor: 'rgba(230, 57, 70, 0.8)',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            ticks: { color: '#ccc' },
-            grid: { color: '#333' }
-          },
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#ccc' },
-            grid: { color: '#333' }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: { color: '#fff' }
-          }
-        }
-      }
-    });
-  </script>
+
 </body>
 </html>
