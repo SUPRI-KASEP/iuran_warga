@@ -396,7 +396,7 @@
         <p class="text-base md:text-lg mb-6 md:mb-8 opacity-90">
           Kelola iuran RT/RW secara profesional. Laporan kas real-time, transparan, dan bisa diakses semua warga.
         </p>
-        <button onclick="openRegistrationModal()" class="btn-outline px-6 md:px-8 py-3 rounded-xl font-semibold shadow-lg pulse-button w-full md:w-auto text-center">
+        <button class="btn-outline px-6 md:px-8 py-3 rounded-xl font-semibold shadow-lg pulse-button w-full md:w-auto text-center">
           🚀 Daftar Sekarang!
         </button>
       </div>
@@ -594,42 +594,7 @@
     <p class="text-sm md:text-base">© 2025 IuranWarga • Transparansi untuk semua warga</p>
   </footer>
 
-  <!-- Registration Modal -->
-  <div id="registrationModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeRegistrationModal()">&times;</span>
-      <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center">Daftar <span class="text-red-500">IuranWarga</span></h3>
-      <form id="registrationForm">
-        <div class="form-group">
-          <label for="nama">Nama Lengkap</label>
-          <input type="text" id="nama" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" required>
-        </div>
-        <div class="form-group">
-          <label for="telepon">Nomor Telepon</label>
-          <input type="tel" id="telepon" required>
-        </div>
-        <div class="form-group">
-          <label for="rt">RT/RW</label>
-          <input type="text" id="rt" placeholder="Contoh: 05/12" required>
-        </div>
-        <div class="form-group">
-          <label for="alamat">Alamat Lengkap</label>
-          <textarea id="alamat" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="jumlahWarga">Perkiraan Jumlah Warga</label>
-          <input type="number" id="jumlahWarga" min="1" required>
-        </div>
-        <button type="submit" class="btn-red w-full py-3 rounded-xl font-semibold mt-4 text-base md:text-lg">
-          Kirim Pendaftaran
-        </button>
-      </form>
-    </div>
-  </div>
+
 
   <script>
     // Mobile Menu Toggle
